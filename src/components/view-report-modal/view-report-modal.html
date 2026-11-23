@@ -1,0 +1,29 @@
+<modal-frame (clickCaughtEvent)="closeModal()">
+    <div class="modal-header">
+        <p class="title">{{reportTitle()}}</p>
+    </div>
+    <div class="modal-body">
+        <div class="section">
+            @for (entry of entryData() ?? []; track entry.id; let i = $index) {
+                <div class="report-entry">
+                    <p class="label">{{i + 1}}. {{entry.label}}</p>
+                    <p class="value">
+                        @if (entry.section_type === SectionType.Checkbox) {
+                            {{entry.value === '0' ? 'No' : 'Yes'}}
+                        } 
+                        @else if (entry.section_type === SectionType.Date) {
+                            {{ entry.value | dateFormat }}
+                        }
+                        @else {
+                            {{ entry.value }}
+                        }
+                    </p>
+                </div>
+            }
+        </div>
+        <div class="section">
+            <!-- Additional content can go here -->
+            <button (click)="exportReport()">Export</button>
+        </div>
+    </div>
+</modal-frame>

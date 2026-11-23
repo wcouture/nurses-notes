@@ -1,0 +1,4 @@
+<div class="app-container">
+  <patient-panel #panel [class.closed]="panelVisible() === false" (onSelectedPatientChanged)="onSelectedPatientChanged($event)" (onTogglePanel)="onTogglePanel($event)" />
+  <patient-detail #detail />
+</div>

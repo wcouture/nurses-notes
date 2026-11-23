@@ -1,0 +1,175 @@
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .modal-title {
+        font-weight: bold;
+        font-size: 16pt;
+    }
+    .tab-bar {
+        display: flex;
+        
+        .tab {
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid black;
+            font-weight: 400;
+            transition: all 0.1s ease;
+            font-size: 11pt;
+
+            &:hover {
+                background-color: #f0f0f0;
+                transition: all 0.1s ease;
+            }
+        }
+
+        .tab.right-end {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tab.left-end {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .tab.active {
+            font-weight: bold;
+
+            font-size: 12pt;
+            transition: all 0.1s ease;
+        }
+
+    }
+}
+
+.new-section-form {
+    margin-top: 10px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+        font-weight: bold;
+        font-size: 12pt;
+    }
+}
+
+.section-label {
+    font-weight: bold;
+    font-size: 14pt;
+
+    padding-top: 25px;
+    margin-top: 25px;
+    border-top: 1px solid #cccccc;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding-right: 10px;
+    width: 600px;
+    min-height: 300px;
+    max-height: 70vh;
+}
+
+.title-form {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+
+    .input-row {
+        max-height: 40px;
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        
+        h5 {
+            font-size: 12pt;
+            padding: 0;
+            margin: 0;
+            width: 45%;
+        }
+
+        input, select {
+            flex: 1;
+        }
+    }
+}
+
+.template-file-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+
+    .current-file-container {
+        display: flex;
+        gap: 5px;
+
+        p {
+            margin: 0;
+            padding: 0;
+            font-size: 12pt;
+            font-weight: bold;
+            width: 50%;
+        }
+
+        .file-link {
+            flex: 1;
+            font-size: 12pt;
+            text-decoration: underline;
+            cursor: pointer;
+            color: rgb(68, 68, 132);
+            margin-left: auto;
+        }
+    }
+
+    .template-file-form {
+        display: flex;
+        gap: 10px;
+
+        input {
+            border: none;
+        }
+
+        button {
+            margin-left: auto;
+        }
+    }
+}
+
+.section-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.section-title {
+    font-weight: bold;
+    flex: 1;
+}
+
+.section-type {
+    font-style: italic;
+    width: max-content;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+
+    td, th {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    th {
+        background-color:  rgb(97, 97, 120);
+        font-weight: bold;
+        color:white;
+    }
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Skilled Timesheet</title>
+        <style>
+            html {
+                font-family: Arial, sans-serif;
+                background-color: white;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                height: min-content;
+                width: min-content;
+            }
+            
+            body {
+                box-sizing: border-box;
+                padding: 0.25in 0.5in;
+                height: 11in;
+                width: 8.5in;
+
+                display: flex;
+                flex-direction: column;
+            }
+
+            p {
+                font-size: 8pt;
+                margin: 4px;
+                text-align: center;
+            }
+            p.title-label {
+                font-weight: 800;
+                text-decoration: underline;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 10px 0;
+            }
+            th, td {
+                border: 1px solid black;
+                text-align: left;
+                padding: 2px;
+            }
+
+            .content-table {
+                th, td {
+                    text-align: center;
+                    border-width: 2px;
+                }
+
+                .number-cell {
+                    text-align: right;
+                }
+
+                .text-cell {
+                    text-align: left;
+                }
+            }
+
+            .footer {
+                margin-top: auto;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                vertical-align: bottom;
+                flex: 1;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+
+                p {
+                    margin: 4px;
+                    font-size: 8pt;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <table class="header-table">
+            <tr>
+                <td width="41%">
+                    {{BRIGHTSTAR_LOGO}}
+                </td>
+                <td width="18%">
+                    <div>
+                        <p class="title-label">Week Ending Date:</p>
+                        <p>(Sunday)</p>
+                        <p>{{WEEK_ENDING_DATE}}</p>
+                    </div>
+                </td>
+                <td width="41%">
+                    <div>
+                        <p class="title-label">Skilled Timesheet</p>
+                        <p>Instructions: 1) Print neatly using only black ink.</p>
+                        <p>2) Email to Billing/Payroll every Monday by 10:00</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <table class="personal-info-table">
+            <tr>
+                <td>
+                    <p class="title-label">Client Information:</p>
+                    Name:
+                    <div style="padding-left: 10px;">
+                        {{PATIENT_NAME}}
+                    </div>
+                </td>
+                <td width="50%" style="vertical-align: top; border-bottom: none;">
+                    <p class="title-label" style="text-align: center;">BrightStar Care of Huntsville/Madison Employee:</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Address:
+                    <div style="padding-left: 10px;">
+                        {{PATIENT_ADDRESS}}
+                    </div>
+                </td>
+                <td style="border-top: none; border-bottom: none;" rowspan="3">
+                    <div style="text-align: center;">
+                        I certify that I have carefully reviewed this Time Sheet and that I
+                        have accurately recorded all of my hours of work, including all
+                        start & stop times, and I hereby certify that my reported hours of
+                        work are accurate. I certify that I have not reported more or less
+                        time than I actually worked. I wll not sign this TimeSheet if it is not
+                        accurate and will report and inaccuracies to the Customer Care
+                        Manager at BrightStar Care of Huntsville/Madision.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    City, State, Zip:
+                    <div style="padding-left: 10px;">
+                        {{PATIENT_CITY_STATE_ZIP}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone:
+                    <div style="padding-left: 10px;">
+                        {{PATIENT_PHONE}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 0 solid black;">
+                    <b><u>Service:</u></b>
+                    <div style="padding-left: 10px; min-height: 4em;">
+                        {{CLIENT_SERVICE}}
+                    </div>
+                </td>
+                <td style="vertical-align: bottom; border-top: none;">
+                    <b>Name:</b> {{USER_NAME}}
+                </td>
+            </tr>
+            <tr>
+                <td style="border-top: 0 solid black;">
+                    <b><u>Mileage:</u></b>
+                    <div style="padding-left: 10px;">
+                        {{CLIENT_MILEAGE}} mi
+                    </div>
+                </td>
+                <td>
+                    <b>Signature:</b> {{SIGNATURE}}
+                </td>
+            </tr>
+        </table>
+        <span style="font-size: 10pt;">
+            Format: Military Time
+        </span>
+        
+        <table class="content-table">
+            {{CONTENT}}
+            <!-- Example table | will be generated dynamically -->
+            <!--
+                <tr class="content-table-header">
+                    <th>Date</th>
+                    <th>Time In</th>
+                    <th>Time Out</th>
+                    <th>Total Hours</th>
+                    <th>Notes</th>
+                </tr>
+                <tr class="content-table-row">
+                    <td>{{DATE}}</td>
+                    <td>{{TIME_IN}}</td>
+                    <td>{{TIME_OUT}}</td>
+                    <td>{{TOTAL_HOURS}}</td>
+                    <td>{{NOTES}}</td>
+                </tr>
+            -->
+        </table>
+
+        <div class="footer">
+            <p>BrightStar Care of Huntsville/Madison</p>
+            <p>6594 Wall Triana Hwy</p>
+            <p>Suite C</p>
+            <p>Huntsville, AL 35757</p>
+            <p>256.801.3600</p>
+        </div>
+    </body>
+</html>

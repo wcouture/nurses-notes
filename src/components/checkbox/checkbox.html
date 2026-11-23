@@ -1,0 +1,5 @@
+<!-- <div class="checkbox-container">
+</div> -->
+
+<input type="hidden" [name]="name()" [value]="checked() ? 1 : 0" />
+<input type="checkbox" (change)="toggle()" [checked]="checked()" />

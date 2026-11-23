@@ -1,0 +1,90 @@
+:host {
+    flex: 0;
+    min-width: max-content;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    transition: 0.3s linear all;
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    text-wrap: none;
+}
+
+.separator {
+    height: 1px;
+    background-color: #e6e6e6;
+    margin: 5px 3px;
+}
+
+.patient-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    
+    .patient {
+        cursor: pointer;
+        padding: 10px;
+        text-wrap: none;
+        border: 1px solid #ffffff;
+
+        .name, .birthdate {
+            margin: 0;
+        }
+        
+        .name {
+            font-weight: bold;
+            font-size: 14pt;
+        }
+        .birthdate {
+            font-style: italic;
+            font-size: 12pt;
+        }
+
+        transition: 0.1s ease-in-out;
+    }
+    .patient:hover {
+        background-color: #f9f9f9;
+        border-color: #f6f6f6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: 0.1s ease-in-out;
+    }
+}
+
+
+.panel-header {
+    display: flex;
+    justify-content: flex-end;
+
+    .close-button {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        font-size: 10pt;
+        font-weight: bold;
+        transition: 0.1s ease-in-out;
+    }
+    .close-button:hover {
+        font-size: 11pt;
+        transition: 0.1s ease-in-out;
+        cursor: pointer;
+    }
+}
+
+.panel-footer {
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    padding-top: 10px;
+
+    bottom: 0;
+
+    display: flex;
+    justify-content: flex-end;
+}

@@ -1,0 +1,151 @@
+<modal-frame (clickCaughtEvent)="closeModal()">
+    <div class="modal-header">
+        <h2 class="modal-title">Edit Report</h2>
+        <div>
+            <div class="tab-bar">
+                <div class="tab left-end {{ selectedTab() === EditTabs.TitleScopeTemplate ? 'active' : '' }}" 
+                    (click)="selectedTab.set(EditTabs.TitleScopeTemplate)">General Info.</div>
+    
+                <div class="tab {{ selectedTab() === EditTabs.SectionsFields ? 'active' : '' }}" 
+                    (click)="selectedTab.set(EditTabs.SectionsFields)">Fields</div>
+    
+                <div class="tab right-end {{ selectedTab() === EditTabs.ExportQuestions ? 'active' : '' }}" 
+                    (click)="selectedTab.set(EditTabs.ExportQuestions)">Export Questions</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        @switch (selectedTab()) {
+            @case(EditTabs.TitleScopeTemplate) {
+                <div>
+                    <h3 class="section-label">General Information</h3>
+                    <form class="title-form" [formGroup]="titleForm">
+                        <div class="input-row">
+                            <h5>Title</h5>
+                            <input id="report-title" formControlName="title" />
+                        </div>
+                        <div class="input-row">
+                            <h5>Report Scope</h5>
+                            <select id="report-scope" formControlName="reportScope">
+                                <option [value]="ReportScope.Patient">Patient</option>
+                                <option [value]="ReportScope.User">User</option>
+                            </select>
+                        </div>
+                        <button type="submit" [disabled]="!titleForm.valid" (click)="updateReportTitle()">Update</button>
+                    </form>
+                </div>
+                <div class="template-file-container">
+                    <div class="current-file-container">
+                        <p>Template File:</p>
+                        <div class="file-link">
+                            <a [href]="getBlobUrl()" [download]="report()?.template_file_name" target="_blank">{{ report()?.template_file_name }}</a>
+                        </div>
+                        @if (uploadTemplateFileVisible()) {
+                            <icon [iconImage]="IconImage.close" [size]='4' (click)="uploadTemplateFileVisible.set(false)"/>
+                        }
+                        @else {
+                            <icon [iconImage]="IconImage.edit" [size]='4' (click)="uploadTemplateFileVisible.set(true)"/>
+                        }
+                    </div>
+                    @if (uploadTemplateFileVisible()) {
+                        <form [formGroup]="templateFileForm" class="template-file-form">
+                            <input type="file" formControlName="templateFile" (change)="onTemplateFileSelected($event)" />
+                            <button type="submit" [disabled]="!selectedTemplateFile" (click)="updateTemplateFile()">Upload</button>
+                        </form>
+                    }
+                </div>
+            }
+            @case(EditTabs.SectionsFields) {
+                <div>
+                    <h3 class="section-label">Sections/Fields</h3>
+                    <div class="new-sec-container">
+                        <table>
+                            <tr>
+                                <th>Label</th>
+                                <th style="width: min-content">Input Type</th>
+                                <th style="width: min-content">Delete</th>
+                            </tr>
+                            @for (section of report()?.sections ?? []; track section) {
+                                <tr>
+                                    <td class="section-title">
+                                        {{ section.title }}
+                                    </td>
+                                    <td class="section-type">
+                                        {{ section.type | sectionType }}
+                                    </td>
+                                    <td (click)="deleteSection(section.id)">
+                                        <icon [iconImage]="IconImage.delete" [size]="5"></icon>
+                                    </td>
+                                </tr>
+                            } 
+                        </table>
+                        
+                        <form [formGroup]="sectionForm" class="new-section-form">
+                            <label for="new-section-title">New Item Title</label>
+                            <input id="new-section-title" formControlName="sectionTitle" />
+                            
+                            <label for="new-section-type">Input Type</label>
+                            <select id="new-section-type" formControlName="sectionType">
+                                <option [value]="SectionType.ShortText">Short Text</option>
+                                <option [value]="SectionType.LongText">Long Text</option>
+                                <option [value]="SectionType.Number">Number</option>
+                                <option [value]="SectionType.Checkbox">Checkbox</option>
+                                <option [value]="SectionType.RadioButtons">Radio Buttons</option>
+                                <option [value]="SectionType.Date">Date</option>
+                            </select>
+                            
+                            <button type="submit" [disabled]="!sectionForm.valid" (click)="addSection()">Add Item</button>
+                        </form>
+                    </div>
+                </div>
+            }
+            @case(EditTabs.ExportQuestions) {
+                <div>
+                    <h5 class="section-label">Export Questions</h5>
+                    <div class="new-sec-container">
+                        <table>
+                            <tr>
+                                <th>Question Text</th>
+                                <th>Export Token/Key</th>
+                                <th>Delete</th>
+                            </tr>
+                            @for (question of report()?.export_questions ?? []; track question) {
+                                <tr>
+                                    <td class="section-title">
+                                        {{ question.question }}
+                                    </td>
+                                    <td class="section-type">
+                                        {{ question.key }}
+                                    </td>
+                                    <td type="button" (click)="deleteExportQuestion(question.id)">
+                                        <icon [iconImage]="IconImage.delete" [size]="5"></icon>
+                                    </td>
+                                </tr>
+                            } 
+                        </table>
+            
+                        <form [formGroup]="exportQuestionForm" class="new-section-form">
+                            <label for="new-question-text">Question Text</label>
+                            <input id="new-question-text" formControlName="questionText" />
+            
+                            <label for="new-question-type">Question Type</label>
+                            <select id="new-question-type" formControlName="questionType">
+                                <option [value]="SectionType.ShortText">Short Text</option>
+                                <option [value]="SectionType.LongText">Long Text</option>
+                                <option [value]="SectionType.Number">Number</option>
+                                <option [value]="SectionType.Checkbox">Checkbox</option>
+                                <option [value]="SectionType.RadioButtons">Radio Buttons</option>
+                                <option [value]="SectionType.Date">Date</option>
+                            </select>
+            
+                            <label for="new-question-key">Token/Key</label>
+                            <input id="new-question-key" formControlName="questionKey" />
+            
+                            <button type="submit" [disabled]="!exportQuestionForm.valid" (click)="addExportQuestion()">Add Question</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</modal-frame>

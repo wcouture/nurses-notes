@@ -1,0 +1,109 @@
+<div class="admin-section admin-header">
+    <h1>Control Panel</h1>
+    <a [routerLink]="['/']"> 
+        <div class="back-to-dashboard">
+            <icon [iconImage]="IconImage.back" [size]="5"></icon>
+            <span>Back to Dashboard</span>
+        </div>
+    </a>
+</div>
+
+<div class="admin-section">
+    <div class="section-header">
+        <h4>Manage Patients</h4>
+        <button (click)="openModal('newPatient')">Create Patient</button>
+    </div>
+    <table>
+        <tr class="header">            
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Birthdate</th>
+            <th>Street Address</th>
+            <th>City/State/Zip</th>
+        </tr>
+        @for (patient of patients(); track patient; let o = $odd) {
+            <tr class="{{o ? 'grey' : ''}}">
+                <td >
+                    <div class="action-icons">
+                        <icon [iconImage]="IconImage.delete" [size]="4" (click)="deletePatient(patient.id)"></icon>
+                        <icon [iconImage]="IconImage.edit" [size]="4" (click)="editPatient(patient.id)"></icon>
+                    </div>
+                </td>
+                <td>{{patient.id}}</td>
+                <td>{{patient.name}}</td>
+                <td>{{patient.email}}</td>
+                <td>{{patient.phone}}</td>
+                <td>{{patient.birthdate}}</td>
+                <td>{{patient.street_address}}</td>
+                <td>{{patient.city_state_zip}}</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div class="admin-section">
+    <div class="section-header">
+        <h4>Manage Reports</h4>
+        <button (click)="openModal('newReport')">Create Report</button>
+    </div>
+    <table>
+        <tr class="header">
+            <th></th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Scope</th>
+            <th>Sections/Questions</th>
+        </tr>
+        @for (report of reports(); track report; let o = $odd) {
+            <tr class="{{o ? 'grey' : ''}}">
+                <td style="padding: 0; text-align: center;" >
+                    <div class="action-icons">
+                        <icon [iconImage]="IconImage.delete" [size]="4" (click)="deleteReport(report.id)"></icon>
+                        <icon [iconImage]="IconImage.edit" [size]="4" (click)="editReport(report.id)"></icon>
+                    </div>
+                </td>
+                <td>{{report.id}}</td>
+                <td>
+                    <p>{{report.title}}</p>
+                </td>
+                <td>{{report.report_scope | reportScope}}</td>
+                <td>
+                    <span>[&nbsp;</span>
+                    @for (section of report.sections ?? []; track section; let last = $last) {
+                        <span><b>{{section.title}}</b>{{!last ? ' | ' : ''}}</span>
+                    }
+                    <span>&nbsp;]</span>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@if (modalState() === "newPatient") {
+    <new-patient-modal (createPatientCallback)="onCreatePatient($event.name, $event.email, $event.phone, $event.birthdate, $event.streetAddress, $event.cityStateZip, $event.isUser)" (closeModalCallback)="modalState.set('closed')"></new-patient-modal>
+}
+@else if (modalState() === "editPatient") {
+    <edit-patient-modal 
+        [patientId]="editPatientId()"
+        (editPatientCallback)="updatePatient($event.id, $event.name, $event.email, $event.phone, $event.birthdate, $event.streetAddress, $event.cityStateZip)"
+        (closeModalCallback)="modalState.set('closed')">
+    </edit-patient-modal>
+}
+@else if (modalState() === "newReport") {
+    <new-report-modal (createReportCallback)="onCreateReport($event.title, $event.reportScope, $event.templateFileData, $event.templateFileName)" (closeModalCallback)="modalState.set('closed')"></new-report-modal>
+}
+@else if (modalState() === "editReport") {
+    <edit-report-modal 
+        [reportId]="editReportId()" 
+        (closeModalCallback)="modalState.set('closed')" 
+        (updateReportCallback)="updateReport($event.reportId, $event.title, $event.reportScope)" 
+        (addSectionCallback)="onAddSection($event.reportId, $event.sectionTitle, $event.sectionType)"
+        (deleteSectionCallback)="deleteSection($event.reportId, $event.sectionId)"
+        (addExportQuestionCallback)="onAddExportQuestion($event.reportId, $event.questionType, $event.questionText, $event.key)"
+        (deleteExportQuestionCallback)="deleteExportQuestion($event.reportId, $event.questionId)"
+        (updateTemplateFileCallback)="updateTemplateFile($event.reportId, $event.templateFileData, $event.templateFileName)">
+    </edit-report-modal>
+}

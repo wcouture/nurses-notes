@@ -1,0 +1,24 @@
+<modal-frame (clickCaughtEvent)="closeModal()">
+    <h3>Edit Patient</h3>
+    <form [formGroup]="editUserForm" (ngSubmit)="onEditPatient()">
+        <label for="name">Name:</label>
+        <input id="name" formControlName="name" placeholder="Name" />
+        
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" placeholder="Email" type="email" />
+        
+        <label for="phone">Phone:</label>
+        <input id="phone" formControlName="phone" placeholder="Phone" type="tel" />
+        
+        <label for="birthdate">New birthdate:</label>
+        <input id="birthdate" formControlName="birthdate" placeholder="Birthdate" type="date" />
+        
+        <label for="streetAddress">Street Address:</label>
+        <input id="streetAddress" formControlName="streetAddress" placeholder="Street Address" />
+        
+        <label for="cityStateZip">City, State, Zip:</label>
+        <input id="cityStateZip" formControlName="cityStateZip" placeholder="City, State, Zip" />
+        
+        <button type="submit" [disabled]="!editUserForm.valid">Save Changes</button>
+    </form>
+</modal-frame>

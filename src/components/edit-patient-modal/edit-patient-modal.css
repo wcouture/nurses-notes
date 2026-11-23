@@ -1,0 +1,15 @@
+form {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 15px;
+    
+    label {
+        font-size: 10pt;
+    }
+
+    .input-caption {
+        font-size: 8pt;
+        color: #666;
+    }
+}

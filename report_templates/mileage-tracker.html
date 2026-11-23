@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mileage Tracker</title>
+        <style>
+            html {
+                font-family: Arial, sans-serif;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                height: min-content;
+                width: min-content;
+            }
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0.5in;
+                height: 11in;
+                width: 8.5in;
+            }
+
+            table {
+                width: 100%;
+                font-size: 8pt;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 4px;
+                text-align: center;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+
+            .ghost-cell {
+                border-width: 0 !important;
+                text-align: right;
+                padding: 10px;
+                align-items: end !important;
+            }
+                
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .top-section {
+                display: flex;
+                padding: 10px;
+                margin-top: 15px;
+                width: 100%;
+
+                .left-column, .right-column {
+                    flex: 1;
+                    padding: 0 10px;
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .left-column {
+                    .bright-star-logo {
+                        width: 100%;
+                    }
+                    .employee-name-container {
+                        width: 100%;
+                        display: flex;
+                        gap: 20px;
+                        font-size: 8pt;
+
+                        .name-line {
+                            flex: 1;
+                            border-bottom: 1px solid black;
+                        }
+                    }
+                }
+
+                .right-column {
+                    .form-title {
+                        font-size: 10pt;
+                        text-align: center;
+                        font-weight: 700;
+                    }
+
+                    .expense-period-table {
+                        font-size: 9pt;
+                        max-width: 75%;
+                        border-collapse: collapse;
+                        border: 3px solid black;
+                    }
+                    .expense-period-table th, .expense-period-table td {
+                        border: 1px solid black;
+                        padding: 2px;
+                        text-align: center;
+                        text-wrap: wrap;
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                    }
+                    .expense-period-table th {
+                        background-color: #f2f2f2;
+                    }
+
+                    .sized-cell {
+                        vertical-align: center;
+                        min-height: 3em;
+                        max-width: 10em;
+                        text-wrap: wrap;
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                    }
+                }
+            }
+
+            .middle-section {
+                flex: 1;
+
+                table {
+                    width: 100%;
+                    font-size: 8pt;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    border: 1px solid black;
+                    padding: 4px;
+                }
+                th {
+                    background-color: #f2f2f2;
+                }
+
+                overflow-y: visible !important;
+            }
+
+            .bottom-section {
+                /* margin-top: -8em; */
+                display:flex;
+                flex-direction: row;
+
+                font-size: 9pt;
+
+                p {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .right-column {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    margin-left: 6em;
+                }
+
+                .section, .inline-section {
+                    margin-bottom: 20px;
+                }
+
+                .inline-section {
+                    display: flex;
+                    gap: 10px;
+                }
+                .section-label {
+                    font-weight: 400;
+                    min-width: max-content;
+                }
+                .underlined-field {
+                    border-bottom: 1px solid black;
+                    display: inline-block;
+                    width: 100%;
+                }
+
+                .comment-box {
+                    border: 1px solid black;
+                    min-height: 6em;
+                    padding: 5px;
+                    margin-bottom: 20px;
+                }
+
+                .left-column {
+                    width: 60%;
+                }
+                .right-column {
+                    flex: 1;
+                }
+            }
+
+            .signature-wrapper {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin-top: 0px;
+                
+                max-width: 20em;
+                max-height: 2em;
+                overflow-y: overflow visible;
+                
+                img {
+                    z-index: -1;
+                }
+                margin-bottom: 10px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="top-section">
+            <div class="left-column">
+                <div class="bright-star-logo">
+                    {{BRIGHTSTAR_LOGO}}
+                    <!-- <img src="../public/brightstar-logo.png" alt="BrightStar Logo" /> -->
+                </div>
+                <div class="employee-name-container">
+                    <p>Employee:</p>
+                    <p class="name-line">{{USER_NAME}}</p>
+                </div>
+            </div>
+            <div class="right-column">
+                <p class="form-title">
+                    BrightStar Care of Huntsville/Madison<br/><br/>
+                    Mileage Reimbursement Form
+                </p>
+                <table class="expense-period-table">
+                    <tr>
+                        <th colspan="2">Expense Period</th>
+                    </tr>
+                    <tr>
+                        <td width="50%">From</td>
+                        <td width="50%">To</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="sized-cell">
+                                {{EXPENSE_PERIOD_FROM}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="sized-cell">
+                                {{EXPENSE_PERIOD_TO}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="middle-section">
+            <table>
+                <!-- <tr>
+                    <th>Date</th>
+                    <th>Reason for travel</th>
+                    <th>Start Location</th>
+                    <th>End Location</th>
+                    <th>Miles Traveled</th>
+                </tr>
+                <tr>
+                    <td>{{DATE}}</td>
+                    <td>{{REASON_FOR_TRAVEL}}</td>
+                    <td>{{START_LOCATION}}</td>
+                    <td>{{END_LOCATION}}</td>
+                    <td>{{MILES_TRAVELED}}</td>
+                </tr> -->
+                {{CONTENT}}
+                <tr>
+                    <td colspan="4" class="ghost-cell">
+                        Total:
+                    </td>
+                    <td>{{TOTAL_MILES_TRAVELED}} mi</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="ghost-cell">
+                        Mileage Rate:
+                    </td>
+                    <td>$ {{MILEAGE_RATE}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="ghost-cell">
+                        Reimbursement:
+                    </td>
+                    <td style="text-align: left;">$</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="bottom-section">
+            <div class="left-column">
+                <div class="section">
+                    <p class="section-label">Comments:</p>
+                    <div class="comment-box">
+                        {{COMMENTS}}
+                    </div>
+                </div>
+                <div class="inline-section">
+                    <p class="section-label" style="align-self: flex-end;">Employee Signature:</p>
+                    <div class="underlined-field">
+                        <div class="signature-wrapper">
+                            {{SIGNATURE}}
+                            <!-- <img src="../public/signature.png" alt="Signature" style="max-width: 100%; height: auto;" /> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="inline-section">
+                    <p class="section-label">Approval Signature:</p>
+                    <p class="underlined-field"></p>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="inline-section">
+                    <p class="section-label">Date:</p>
+                    <p class="underlined-field">{{CURRENT_DATE}}</p>
+                </div>
+                <div class="inline-section">
+                    <p class="section-label">Date:</p>
+                    <p class="underlined-field"></p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

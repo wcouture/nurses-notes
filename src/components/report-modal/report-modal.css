@@ -1,0 +1,41 @@
+p {
+    padding: 0;
+    margin: 0;
+}
+
+.modal-header, .modal-body {
+    padding: 5px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+
+    .title {
+        font-weight: bold;
+        font-size: 15pt;
+    }
+}
+
+.modal-body {
+    .section {
+        
+        .title {
+            font-weight: bold;
+            font-size: 12pt;
+            margin-top: 10px;
+        }
+        .section-input {
+            font-size: 12pt;
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+    }
+}

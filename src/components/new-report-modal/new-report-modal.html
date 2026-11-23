@@ -1,0 +1,13 @@
+<modal-frame (clickCaughtEvent)="closeModal()">
+    <h3>New Report</h3>
+    <form [formGroup]="newUserForm" (ngSubmit)="onCreateReport()">
+        <input formControlName="title" placeholder="Title">
+        <label>Who is the report for?</label>
+        <select formControlName="reportScope">
+            <option [value]="ReportScope.Patient">Patient</option>
+            <option [value]="ReportScope.User">User</option>
+        </select>
+        <input formControlName="templateFileData" type="file" placeholder="Template File" (change)="onFileChange($event)">
+        <button type="submit" [disabled]="!newUserForm.valid">Create Report</button>
+    </form>
+</modal-frame>

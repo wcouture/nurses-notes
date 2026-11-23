@@ -1,0 +1,82 @@
+<modal-frame (clickCaughtEvent)="closeModal()">
+    @if (exportStep() === ExportStep.GeneratingPDF) {
+        <div class="load-spinner-container">
+            <p>Generating PDF...</p>
+            <div class="spinner"></div>
+        </div>
+    }
+    @else {
+        <div class="modal-header">
+            <p class="modal-title">Export Report</p>
+        </div>
+        <div class="modal-body">
+            @if (exportStep() === ExportStep.ExportQuestions) {
+                <div class="export-question-container">
+                    <form [formGroup]="exportForm" (ngSubmit)="generatePDF($event)">
+                        <p class="label">Additional export questions...</p>
+                        <div class="export-questions">
+                            @for (question of report()?.export_questions ?? []; track question) {
+                                <label>{{ question.question }}</label>
+                                @switch (question.question_type){
+                                    @case (SectionType.ShortText) {
+                                        <input [name]="question.id.toString()" type="text"/>
+                                    }
+                                    @case (SectionType.LongText) {
+                                        <textarea [name]="question.id.toString()"></textarea>
+                                    }
+                                    @case (SectionType.Number) {
+                                        <input [name]="question.id.toString()" type="number" />
+                                    }
+                                    @case (SectionType.Checkbox) {
+                                        <checkbox [name]="question.id.toString()" type="checkbox" />
+                                    }
+                                    @case (SectionType.Date) {
+                                        <input [name]="question.id.toString()" type="date" />
+                                    }
+                                }
+                            }
+                            @if (!report() || report()?.export_questions.length === 0) {
+                                <p class="no-export-questions-label">No export questions to answer.</p>
+                            }
+                        </div>
+                        <div class="buttons">
+                            <button type="button" (click)="exportStep.set(ExportStep.SelectEntries)">
+                                Back
+                            </button>
+                            <button type="submit">Generate PDF</button>
+                        </div>
+                    </form>
+                </div>
+            }
+            @else if (exportStep() === ExportStep.SelectEntries) {
+                <div class="entry-table-container">
+                    <p class="label">Select entries to export...</p>
+                    
+                    <div class="entry-table-wrapper">
+                        <table>
+                            <tr class="sticky">
+                                <th></th>
+                                @for (section of report()?.sections ?? []; track section) {
+                                    <th>{{ section.title }}</th>
+                                }
+                            </tr>
+                            @for (completedReport of completedReports() ?? []; track completedReport.id; let e = $even) {
+                                <tr class="{{ e ? 'even' : 'odd' }}">
+                                    <td>
+                                        <input type="checkbox" (change)="toggleEntrySelection(completedReport.id)" [checked]="selectedEntryIds.includes(completedReport.id)" />
+                                    </td>
+                                    @for (entry of completedReport.entries ?? []; track entry) {
+                                        <td>{{ entry.value }}</td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <button type="button" (click)="exportStep.set(ExportStep.ExportQuestions)">
+                    Next
+                </button>
+            }
+        </div>
+    }
+</modal-frame>

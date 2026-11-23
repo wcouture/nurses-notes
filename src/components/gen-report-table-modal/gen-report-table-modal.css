@@ -1,0 +1,120 @@
+.load-spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #222734;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.modal-header {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+
+    .modal-title {
+        margin: 0;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+}
+
+.modal-body {
+    margin-bottom: 10px;
+}
+
+p.label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.preview-entry-container{
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.export-question-container {
+    min-width: 400px;
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .no-export-questions-label {
+        font-style: italic;
+        font-size: 0.9em;
+        color: #666;
+    }
+
+    .export-questions {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 15px;
+        margin-bottom: 15px;
+
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+    }
+}
+
+.entry-table-container {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    
+    .entry-table-wrapper {
+        max-height: 200px;
+        overflow-y: auto;
+
+        tr.sticky {
+            position: sticky;
+            top: 0;
+        }
+        td, tr {
+            text-wrap: nowrap;
+        }
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    background-color: #222734;
+    text-align: left;
+    color: white;
+    padding: 8px;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+table tr.even {
+    background-color: #f9f9f9;
+}
+table tr.odd {
+    background-color: #ffffff;
+}

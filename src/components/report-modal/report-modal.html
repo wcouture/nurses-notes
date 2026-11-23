@@ -1,0 +1,37 @@
+<modal-frame (clickCaughtEvent)="closeModal()">
+    <div class="modal-header">
+        <p class="title">New Entry: {{report()?.title}}</p>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="reportForm" (ngSubmit)="onSubmitReport($event)">
+            @for (section of report()?.sections ?? []; track section.title){
+                <div class="section">
+                    <p class="title">{{section.title}}</p>                    
+                    @switch(section.type) {
+                        @case(0) {
+                            <!-- Short Text -->
+                            <input class="section-input" [name]="section.title + ';' + section.type" type="text" />
+                        }
+                        @case(1) {
+                            <!-- Long Text -->
+                            <textarea class="section-input" [name]="section.title + ';' + section.type"></textarea>
+                        }
+                        @case(2) {
+                            <!-- Number -->
+                            <input class="section-input" [name]="section.title + ';' + section.type" type="number" />
+                        }
+                        @case(3) {
+                            <!-- Checkbox -->
+                            <checkbox class="section-input" [name]="section.title + ';' + section.type"></checkbox>
+                        }
+                        @case(5) {
+                            <!-- Date -->
+                            <input class="section-input" [name]="section.title + ';' + section.type" type="date" />
+                        }
+                    }
+                </div>
+            }
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</modal-frame>
