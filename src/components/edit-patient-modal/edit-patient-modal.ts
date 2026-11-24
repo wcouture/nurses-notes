@@ -72,6 +72,6 @@ export class EditPatientModal {
 
   private patientSummary() : string {
     const { name, email, phone, birthdate, streetAddress, cityStateZip } = this.editUserForm.value;
-    return `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nBirthdate: ${birthdate}\nStreet Address: ${streetAddress}\nCity/State/Zip: ${cityStateZip}`;
+    return `Name: ${name}\n\nEmail: ${email}\n\nPhone: ${phone}\n\nBirthdate: ${birthdate}\n\nStreet Address: ${streetAddress}\n\nCity/State/Zip: ${cityStateZip}`;
   }
 }

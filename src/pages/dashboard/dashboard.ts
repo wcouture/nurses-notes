@@ -25,7 +25,6 @@ export class Dashboard {
   onTogglePanel(visible: boolean) {
     const panel = this.patientPanel();
     if (panel) {
-      console.log("Panel visibility changed to:", visible);
       this.panelVisible.set(visible);    
     } else {
       console.warn('PatientPanel component is not available.');

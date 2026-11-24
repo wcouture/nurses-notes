@@ -148,7 +148,7 @@ export class AdminPage {
 
   getDateString(date: Date | undefined): string {
     if (!date) {
-      return 'undefined';
+      return '';
     }
 
     const year = date.getFullYear();

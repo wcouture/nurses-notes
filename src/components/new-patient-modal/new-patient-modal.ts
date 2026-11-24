@@ -18,7 +18,6 @@ export class NewPatientModal {
     birthdate: new FormControl('', Validators.required),
     streetAddress: new FormControl('', Validators.required),
     cityStateZip: new FormControl('', Validators.required),
-    isUser: new FormControl(false)
   })
 
   userExists = signal(false)
@@ -36,8 +35,8 @@ export class NewPatientModal {
 
   onCreatePatient() {
     if (this.newUserForm.valid && window.confirm("Are you sure you want to create this patient?\n\n" + this.patientSummary())) {
-      const { name, email, phone, birthdate, streetAddress, cityStateZip, isUser } = this.newUserForm.value;
-      this.createPatientCallback.emit({name: name!, email: email!, phone: phone!, birthdate: birthdate!, streetAddress: streetAddress!, cityStateZip: cityStateZip!, isUser: isUser!});
+      const { name, email, phone, birthdate, streetAddress, cityStateZip } = this.newUserForm.value;
+      this.createPatientCallback.emit({name: name!, email: email!, phone: phone!, birthdate: birthdate!, streetAddress: streetAddress!, cityStateZip: cityStateZip!, isUser: !this.userExists()});
     }
   }
 
@@ -46,8 +45,8 @@ export class NewPatientModal {
   }
 
   private patientSummary() : string {
-    const { name, email, phone, birthdate, streetAddress, cityStateZip, isUser } = this.newUserForm.value;
-    return `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nBirthdate: ${birthdate}\nStreet Address: ${streetAddress}\nCity/State/Zip: ${cityStateZip}\nIs User: ${isUser ? 'Yes' : 'No'}`;
+    const { name, email, phone, birthdate, streetAddress, cityStateZip } = this.newUserForm.value;
+    return `Name: ${name}\n\nEmail: ${email}\n\nPhone: ${phone}\n\nBirthdate: ${birthdate}\n\nStreet Address: ${streetAddress}\n\nCity/State/Zip: ${cityStateZip}\n\nIs User: ${!this.userExists() ? 'Yes' : 'No'}`;
   }
 
 }

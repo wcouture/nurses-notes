@@ -3,3 +3,10 @@ form {
     flex-direction: column;
     gap: 15px;
 }
+
+.is-user-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}

@@ -15,7 +15,7 @@ export class ReportService {
         return this.convertToReport(raw);
     }
     
-    public createReport(title: string, reportScope: ReportScope, templateFileData: any, templateFileName: string): Promise<any> {
+    public createReport(title: string, reportScope: ReportScope, templateFileData: ArrayBuffer, templateFileName: string): Promise<any> {
         return window.electronAPI?.createReport(title, reportScope.valueOf().toString(), templateFileData, templateFileName) ?? Promise.resolve(undefined);
     }
 

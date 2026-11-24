@@ -51,6 +51,6 @@ export class NewReportModal {
 
   private reportSummary() : string {
     const { title } = this.newUserForm.value;
-    return `Title: ${title}\nTemplate File: ${this.selectedFile?.name ?? 'None'}\nFile Size: ${this.selectedFile?.size ?? 'None'}`;
+    return `Title: ${title}\n\nTemplate File: ${this.selectedFile?.name ?? 'None'}\n\nFile Size: ${this.selectedFile?.size ?? 'None'}`;
   }
 }

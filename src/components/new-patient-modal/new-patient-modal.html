@@ -1,5 +1,5 @@
 <modal-frame (clickCaughtEvent)="closeModal()">
-    <h3>New Patient</h3>
+    <h3>{{ userExists() ? 'New Patient' : 'Enter User Information' }}</h3>
     <form [formGroup]="newUserForm" (ngSubmit)="onCreatePatient()">
         <input formControlName="name" placeholder="Name" />
         <input formControlName="email" placeholder="Email" type="email" />
@@ -7,10 +7,6 @@
         <input formControlName="birthdate" placeholder="Birthdate" type="date" />
         <input formControlName="streetAddress" placeholder="Street Address" />
         <input formControlName="cityStateZip" placeholder="City, State, Zip" />
-        @if (userExists() === false) {
-            <label for="isUser">Is User</label>
-            <input id="isUser" formControlName="isUser" type="checkbox" [disabled]="userExists()"/>
-        }
-        <button type="submit" [disabled]="!newUserForm.valid">Create Patient</button>
+        <button type="submit" [disabled]="!newUserForm.valid">Create {{ userExists() ? 'Patient' : 'User' }}</button>
     </form>
 </modal-frame>
