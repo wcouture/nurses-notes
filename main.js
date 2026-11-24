@@ -3,6 +3,10 @@ const { DatabaseSync } = require('node:sqlite');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
+if (require('electron-squirrel-startup')) {
+    app.quit();
+}
+
 let mainWindow;
 const db = new DatabaseSync('nurses-notes.db');
 
