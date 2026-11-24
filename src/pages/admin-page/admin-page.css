@@ -1,5 +1,6 @@
 .admin-section {
-    margin: 10px 20px;
+    margin: 20px 30px;
+    max-width: 100%;
 }
 
 .admin-header {
@@ -7,6 +8,18 @@
     justify-content: space-between;
     border-bottom: 1px solid grey;
     align-items: center;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5px;
+
+  h4 {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .back-to-dashboard {
@@ -39,7 +52,6 @@
 td, th {
     padding: 4px;
     text-align: left;
-    text-wrap: nowrap;
     font-size: 12pt;
 }
 tr.header {
@@ -48,6 +60,13 @@ tr.header {
 }
 tr.grey {
     background-color: lightgrey;
+}
+th {
+    text-wrap: nowrap;  
+}
+
+td.no-wrap {
+    text-wrap: nowrap;
 }
 
 td {
@@ -70,22 +89,14 @@ td {
     }
 }
 
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
 table {
     border-collapse: collapse;
     border: 1px solid grey;
     gap: 0;
-    width: 100%;
-
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-
-    h4 {
-        margin: 0;
-        padding: 0;
-    }
+    min-width: 100%;
 }

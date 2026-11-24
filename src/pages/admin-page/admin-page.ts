@@ -31,12 +31,15 @@ export class AdminPage {
   reportService = inject(ReportService);
   sectionService = inject(SectionService);
   router = inject(Router); 
-  
+
+  user = signal(undefined as Patient | undefined | null);
   patients = signal([] as Patient[]);
   reports = signal([] as Report[]);
 
   private loadPatients = async () => {
     const patients = await this.patientService.getPatientList();
+    const user = await this.patientService.getUser();
+    this.user.set(user ?? null);
     this.patients.set(patients ?? []);
   };
 
@@ -141,5 +144,17 @@ export class AdminPage {
 
   openModal(state: string) {
     this.modalState.set(state);
+  }
+
+  getDateString(date: Date | undefined): string {
+    if (!date) {
+      return 'undefined';
+    }
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are zero-based
+    const day = date.getDate();
+
+    return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
   }
 }

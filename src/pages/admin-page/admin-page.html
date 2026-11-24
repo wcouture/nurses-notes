@@ -9,39 +9,75 @@
 </div>
 
 <div class="admin-section">
+  <div class="section-header">
+    <h4>My Info</h4>
+    <button (click)="openModal('newPatient')" [disabled]="user()">Create User</button>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <tr class="header">
+        <th></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Birthdate</th>
+        <th>Street Address</th>
+        <th>City/State/Zip</th>
+      </tr>
+      <tr>
+        <td>
+          @if (user()) {
+          <div class="action-icons">
+            <icon [iconImage]="IconImage.delete" [size]="4" (click)="deletePatient(user()?.id!)"></icon>
+            <icon [iconImage]="IconImage.edit" [size]="4" (click)="editPatient(user()?.id!)"></icon>
+          </div>
+          }
+        </td>
+        <td class="nowrap">{{user()?.name ?? ''}}</td>
+        <td class="nowrap">{{user()?.email ?? ''}}</td>
+        <td class="nowrap">{{user()?.phone ?? ''}}</td>
+        <td class="nowrap">{{getDateString(user()?.birthdate)}}</td>
+        <td>{{user()?.street_address ?? ''}}</td>
+        <td>{{user()?.city_state_zip ?? ''}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="admin-section">
     <div class="section-header">
         <h4>Manage Patients</h4>
-        <button (click)="openModal('newPatient')">Create Patient</button>
+        <button (click)="openModal('newPatient')" [disabled]="!user()">Create Patient</button>
     </div>
-    <table>
-        <tr class="header">            
-            <th></th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Birthdate</th>
-            <th>Street Address</th>
-            <th>City/State/Zip</th>
-        </tr>
-        @for (patient of patients(); track patient; let o = $odd) {
-            <tr class="{{o ? 'grey' : ''}}">
-                <td >
-                    <div class="action-icons">
-                        <icon [iconImage]="IconImage.delete" [size]="4" (click)="deletePatient(patient.id)"></icon>
-                        <icon [iconImage]="IconImage.edit" [size]="4" (click)="editPatient(patient.id)"></icon>
-                    </div>
-                </td>
-                <td>{{patient.id}}</td>
-                <td>{{patient.name}}</td>
-                <td>{{patient.email}}</td>
-                <td>{{patient.phone}}</td>
-                <td>{{patient.birthdate}}</td>
-                <td>{{patient.street_address}}</td>
-                <td>{{patient.city_state_zip}}</td>
-            </tr>
-        }
-    </table>
+    <div class="table-wrapper">
+      <table class="user-table">
+          <tr class="header">            
+              <th></th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Birthdate</th>
+              <th>Street Address</th>
+              <th>City/State/Zip</th>
+          </tr>
+          @for (patient of patients(); track patient; let o = $odd) {
+              <tr class="{{o ? 'grey' : ''}}">
+                  <td >
+                      <div class="action-icons">
+                          <icon [iconImage]="IconImage.delete" [size]="4" (click)="deletePatient(patient.id)"></icon>
+                          <icon [iconImage]="IconImage.edit" [size]="4" (click)="editPatient(patient.id)"></icon>
+                      </div>
+                  </td>
+                  <td class="nowrap">{{patient.name}}</td>
+                  <td class="nowrap">{{patient.email}}</td>
+                  <td class="nowrap">{{patient.phone}}</td>
+                  <td class="nowrap">{{patient.birthdate}}</td>
+                  <td>{{patient.street_address}}</td>
+                  <td>{{patient.city_state_zip}}</td>
+              </tr>
+          }
+      </table>
+    </div>
 </div>
 
 <div class="admin-section">
@@ -49,37 +85,39 @@
         <h4>Manage Reports</h4>
         <button (click)="openModal('newReport')">Create Report</button>
     </div>
-    <table>
-        <tr class="header">
-            <th></th>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Scope</th>
-            <th>Sections/Questions</th>
-        </tr>
-        @for (report of reports(); track report; let o = $odd) {
-            <tr class="{{o ? 'grey' : ''}}">
-                <td style="padding: 0; text-align: center;" >
-                    <div class="action-icons">
-                        <icon [iconImage]="IconImage.delete" [size]="4" (click)="deleteReport(report.id)"></icon>
-                        <icon [iconImage]="IconImage.edit" [size]="4" (click)="editReport(report.id)"></icon>
-                    </div>
-                </td>
-                <td>{{report.id}}</td>
-                <td>
-                    <p>{{report.title}}</p>
-                </td>
-                <td>{{report.report_scope | reportScope}}</td>
-                <td>
-                    <span>[&nbsp;</span>
-                    @for (section of report.sections ?? []; track section; let last = $last) {
-                        <span><b>{{section.title}}</b>{{!last ? ' | ' : ''}}</span>
-                    }
-                    <span>&nbsp;]</span>
-                </td>
-            </tr>
-        }
-    </table>
+    <div class="table-wrapper">
+      <table>
+          <tr class="header">
+              <th></th>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Scope</th>
+              <th>Sections/Questions</th>
+          </tr>
+          @for (report of reports(); track report; let o = $odd) {
+              <tr class="{{o ? 'grey' : ''}}">
+                  <td style="padding: 0; text-align: center;" >
+                      <div class="action-icons">
+                          <icon [iconImage]="IconImage.delete" [size]="4" (click)="deleteReport(report.id)"></icon>
+                          <icon [iconImage]="IconImage.edit" [size]="4" (click)="editReport(report.id)"></icon>
+                      </div>
+                  </td>
+                  <td>{{report.id}}</td>
+                  <td>
+                      <p>{{report.title}}</p>
+                  </td>
+                  <td>{{report.report_scope | reportScope}}</td>
+                  <td>
+                      <span>[&nbsp;</span>
+                      @for (section of report.sections ?? []; track section; let last = $last) {
+                          <span><b>{{section.title}}</b>{{!last ? ' | ' : ''}}</span>
+                      }
+                      <span>&nbsp;]</span>
+                  </td>
+              </tr>
+          }
+      </table>
+    </div>
 </div>
 
 @if (modalState() === "newPatient") {
