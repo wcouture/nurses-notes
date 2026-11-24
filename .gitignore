@@ -12,6 +12,9 @@ npm-debug.log
 yarn-error.log
 
 # IDEs and editors
+/.vs
+/.vs/*
+/.vs/**/*
 .idea/
 .project
 .classpath
@@ -46,3 +49,4 @@ Thumbs.db
 /.vs/slnx.sqlite
 /.vs/slnx.sqlite-journal
 /.vs/nurses-notes.slnx/config
+/.vs/nurses-notes.slnx/v18/.wsuo
