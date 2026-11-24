@@ -28,8 +28,9 @@ p {
     .patient {
         cursor: pointer;
         padding: 10px;
-        text-wrap: none;
+        text-wrap: nowrap;
         border: 1px solid #ffffff;
+        border-radius: 3px;
 
         .name, .birthdate {
             margin: 0;
@@ -49,7 +50,13 @@ p {
     .patient:hover {
         background-color: #f9f9f9;
         border-color: #f6f6f6;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        transition: 0.1s ease-in-out;
+    }
+
+    .patient.selected {
+        border-color: #f6f6f6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) inset;
         transition: 0.1s ease-in-out;
     }
 }
@@ -82,6 +89,7 @@ p {
     border-top: 1px solid #ccc;
     margin-top: 10px;
     padding-top: 10px;
+    margin-bottom: 10px;
 
     bottom: 0;
 

@@ -22,7 +22,7 @@ export class PatientPanel {
   
   user = signal<Patient | undefined>(undefined);
   patientList = signal<Patient[]>([]);
-  selectedPatient: number | null = null;
+  selectedPatient = signal<number>(-1);
 
   onSelectedPatientChanged = output<number>();
   onTogglePanel = output<boolean>();
@@ -35,7 +35,7 @@ export class PatientPanel {
   }
 
   onSelectPatient(patientId: number) {
-    this.selectedPatient = patientId;
+    this.selectedPatient.set(patientId);
     this.onSelectedPatientChanged.emit(patientId);
   }
 

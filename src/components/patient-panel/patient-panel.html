@@ -14,13 +14,13 @@
     @if (panelVisible()) { 
         @if (user() !== undefined) {
             <div class="separator"></div>
-            <li class="patient" (click)="onSelectPatient(user()?.id!)">
+            <li class="patient {{ selectedPatient() === user()?.id ? 'selected' : '' }}" (click)="onSelectPatient(user()?.id!)">
                 <p class="name">My Reports</p>
             </li>
         }
         <div class="separator"></div>
         @for (patient of patientList(); track patient) {
-            <li class="patient" (click)="onSelectPatient(patient.id)">
+            <li class="patient {{ selectedPatient() === patient.id ? 'selected' : '' }}" (click)="onSelectPatient(patient.id)">
                 <p class="name">{{ patient.name }}</p>
                 <p class="birthdate">{{ patient.birthdate }}</p>
             </li>

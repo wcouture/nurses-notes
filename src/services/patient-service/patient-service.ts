@@ -18,7 +18,11 @@ export class PatientService {
     public async getPatient(id: number): Promise<Patient | undefined> {
         const patient = await window.electronAPI?.getPatientById(id.toString()) ?? undefined;
         if (patient && patient.birthdate && patient.birthdate instanceof Date === false) {
-            patient.birthdate = new Date(patient.birthdate);
+            const parts = patient.birthdate.split('-');
+            const year = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // Months are zero-based in JavaScript Date
+            const day = parseInt(parts[2], 10);
+            patient.birthdate = new Date(year, month, day);
         }
         return patient;
     }
@@ -26,7 +30,11 @@ export class PatientService {
     public async getUser(): Promise<Patient | undefined> {
         const user = await window.electronAPI?.getUser() ?? undefined;
         if (user && user.birthdate && user.birthdate instanceof Date === false) {
-            user.birthdate = new Date(user.birthdate);
+            const parts = user.birthdate.split('-');
+            const year = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // Months are zero-based in JavaScript Date
+            const day = parseInt(parts[2], 10);
+            user.birthdate = new Date(year, month, day);
         }
         return user;
     }
