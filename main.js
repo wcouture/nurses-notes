@@ -5,12 +5,13 @@ const path = require('path');
 
 if (require('electron-squirrel-startup')) {
     app.quit();
+    return;
 }
 
+let browser;
 let mainWindow;
 const db = new DatabaseSync('nurses-notes.db');
 
-let browser;
 
 async function generatePDF(htmlContent) {
     const page = await browser.newPage();
