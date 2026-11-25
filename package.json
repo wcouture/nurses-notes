@@ -60,8 +60,8 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "nurses-notes",
-            "loadingGif": "./public/setup-animation.gif"
+            "loadingGif": "./assets/loading.gif",
+            "name": "NursesNotes"
           }
         },
         {
