@@ -1,8 +1,8 @@
 {
   "name": "nurses-notes",
   "productName": "Nurses Notes",
-  "description": "Notes Management for Travel Nurses",
-  "version": "0.0.1",
+  "description": "All-in-one time, travel, and notes management for nurses",
+  "version": "0.1.0",
   "main": "main.js",
   "author": "William Couture",
   "scripts": {
@@ -33,7 +33,6 @@
     "@angular/compiler-cli": "^22.1.0",
     "@electron-forge/cli": "^8.0.1",
     "@electron-forge/maker-dmg": "^8.0.1",
-    "@electron-forge/maker-msix": "^8.0.1",
     "@electron-forge/maker-squirrel": "^8.0.1",
     "@electron-forge/publisher-github": "^8.0.1",
     "electron": "^45.1.0",
