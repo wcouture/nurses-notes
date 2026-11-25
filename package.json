@@ -6,11 +6,6 @@
   "main": "main.js",
   "author": "William Couture",
   "scripts": {
-    "ng": "ng",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "electron": "ng build && electron .",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
@@ -39,6 +34,7 @@
     "@electron-forge/maker-dmg": "^8.0.1",
     "@electron-forge/maker-msix": "^8.0.1",
     "@electron-forge/maker-squirrel": "^8.0.1",
+    "@electron-forge/publisher-github": "^8.0.1",
     "electron": "^45.1.0",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
@@ -69,6 +65,19 @@
           "config": {
             "background": "./assets/background.png",
             "format": "ULFO"
+          }
+        }
+      ],
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "wcouture",
+              "name": "nurses-notes"
+            },
+            "prerelease": false,
+            "draft": true
           }
         }
       ]
