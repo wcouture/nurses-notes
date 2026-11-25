@@ -1,5 +1,6 @@
 {
   "name": "nurses-notes",
+  "productName": "Nurses Notes",
   "description": "Notes Management for Travel Nurses",
   "version": "0.0.1",
   "main": "main.js",
@@ -52,12 +53,15 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./public/nurses-notes"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "nurses-notes"
+            "name": "nurses-notes",
+            "loadingGif": "./public/setup-animation.gif"
           }
         },
         {

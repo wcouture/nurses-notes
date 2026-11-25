@@ -305,6 +305,8 @@ function createWindow() {
     });
 }
 
+app.setAppUserModelId("net.willc-dev.NursesNotes.NursesNotes");
+
 app.whenReady().then(async () => {
     await initializePuppeteer();
     ensureDbTablesCreated();
