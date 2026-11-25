@@ -63,7 +63,7 @@
         {
           "name": "@electron-forge/maker-dmg",
           "config": {
-            "background": "./assets/background.png",
+            "background": "./assets/background.jpg",
             "format": "ULFO"
           }
         }
