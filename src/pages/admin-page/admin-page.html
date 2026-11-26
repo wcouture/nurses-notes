@@ -2,7 +2,7 @@
     <div class="admin-section admin-header">
         <h1>Control Panel</h1>
         <a [routerLink]="['/']"> 
-            <div class="back-to-dashboard">
+            <div class="back-to-dashboard {{ theme() }}">
                 <icon [iconImage]="IconImage.back" [size]="5"></icon>
                 <span>Back to Dashboard</span>
             </div>
@@ -15,7 +15,7 @@
         <button (click)="openModal('newPatient')" [disabled]="user()">Create User</button>
       </div>
       <div class="table-wrapper">
-        <table>
+        <table class="{{ theme() }}">
           <tr class="header">
             <th></th>
             <th>Name</th>
@@ -51,7 +51,7 @@
             <button (click)="openModal('newPatient')" [disabled]="!user()">Create Patient</button>
         </div>
         <div class="table-wrapper">
-          <table class="user-table">
+          <table class="user-table {{ theme() }}">
               <tr class="header">            
                   <th></th>
                   <th>Name</th>
@@ -62,7 +62,7 @@
                   <th>City/State/Zip</th>
               </tr>
               @for (patient of patients(); track patient; let o = $odd) {
-                  <tr class="{{o ? 'grey' : ''}}">
+                  <tr class="{{o ? 'odd' : 'even'}}">
                       <td >
                           <div class="action-icons">
                               <icon [iconImage]="IconImage.delete" [size]="4" (click)="deletePatient(patient.id)"></icon>
@@ -87,7 +87,7 @@
             <button (click)="openModal('newReport')">Create Report</button>
         </div>
         <div class="table-wrapper">
-          <table>
+          <table class="{{ theme() }}">
               <tr class="header">
                   <th></th>
                   <th>ID</th>
@@ -96,7 +96,7 @@
                   <th>Sections/Questions</th>
               </tr>
               @for (report of reports(); track report; let o = $odd) {
-                  <tr class="{{o ? 'grey' : ''}}">
+                  <tr class="{{o ? 'odd' : 'even'}}">
                       <td style="padding: 0; text-align: center;" >
                           <div class="action-icons">
                               <icon [iconImage]="IconImage.delete" [size]="4" (click)="deleteReport(report.id)"></icon>
@@ -131,7 +131,7 @@
                 Current Theme: {{themeManager.getTheme() | themeString}}
             </p>
             <div>
-                <toggle-switch [startingOption]="themeManager.getTheme().valueOf()" [option1]="ThemeMode.Light.toString()" [option2]="ThemeMode.Dark.toString()" [option1Color]="'#ffcf7d'" [option2Color]="'#2d1957'" (onToggleCallback)="onToggleTheme($event)"></toggle-switch>
+                <toggle-switch [startingOption]="themeManager.getTheme().valueOf()" [option1]="ThemeMode.Light.toString()" [option2]="ThemeMode.Dark.toString()" [option1Color]="'#ffcf7d'" [option2Color]="'#4b4b4b'" (onToggleCallback)="onToggleTheme($event)"></toggle-switch>
             </div>
         </div>
     </div>

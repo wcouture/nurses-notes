@@ -53,7 +53,7 @@
                     <p class="label">Select entries to export...</p>
                     
                     <div class="entry-table-wrapper">
-                        <table>
+                        <table class="{{ themeString() }}">
                             <tr class="sticky">
                                 <th></th>
                                 @for (section of report()?.sections ?? []; track section) {

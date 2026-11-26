@@ -201,7 +201,7 @@
 
         .header-row {
             background-color: #263a50;
-            color: var(--text-light);
+            color: white;
         }
 
         .entry-item-row.even {

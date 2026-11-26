@@ -5,6 +5,7 @@
     background-color: #ccc;
     position: relative;
     cursor: pointer;
+    border: 2px solid #ccc;
     transition: all 0.3s;
 }
 

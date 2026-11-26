@@ -1,7 +1,7 @@
 import { Component, input, inject, signal } from '@angular/core';
 import { IconImage } from '../../models/IconImage';
 import { ThemeManager } from '../../services/theme-manager/theme-manager';
-import { ThemeStringPipe } from '../../pipes/theme-string-pipe/theme-string-pipe';
+import { ThemeMode } from '../../models/Theme';
 
 @Component({
   imports: [],
@@ -17,14 +17,14 @@ export class Icon {
 
 
   ngOnInit() {
-    // const theme = this.themeManager.getTheme();
-    // const themeClass = new ThemeStringPipe().transform(theme);
-    // this.themeClass.set(themeClass);
+    const theme = this.themeManager.getTheme();
+    const themeClass = theme === ThemeMode.Dark ? 'dark' : 'light';
+    this.themeClass.set(themeClass);
 
-    // this.themeManager.subscribe((theme) => {
-    //   const themeClass = new ThemeStringPipe().transform(theme);
-    //   this.themeClass.set(themeClass);
-    // });
+    this.themeManager.subscribe((theme) => {
+      const themeClass = theme === ThemeMode.Dark ? 'dark' : 'light';
+      this.themeClass.set(themeClass);
+    });
   }
 
   get sizeClass() {

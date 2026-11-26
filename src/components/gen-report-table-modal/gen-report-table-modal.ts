@@ -9,6 +9,8 @@ import { ReportService } from '../../services/report-service/report-service';
 import { SectionService } from '../../services/section-service/section-service';
 import { PatientService } from '../../services/patient-service/patient-service';
 import { ModalFrame } from '../modal-frame/modal-frame';
+import { ThemeManager } from '../../services/theme-manager/theme-manager';
+import { ThemeMode } from '../../models/Theme';
 
 enum ExportStep {
   ExportQuestions,
@@ -41,6 +43,7 @@ export class GenReportTableModal {
   patientService = inject(PatientService);
   sectionService = inject(SectionService);
   reportBuilder = inject(ReportBuilder);
+  themeManager = inject(ThemeManager);
   
   report = signal<Report | null>(null);
   reportSections = signal<ReportSection[] | null>(null);
@@ -48,6 +51,7 @@ export class GenReportTableModal {
   completedReports = signal<CompletedReport[] | null>(null);
   selectedEntryIds: number[] = [];  
   
+  themeString = signal<string>('light');
   exportStep = signal<ExportStep>(ExportStep.SelectEntries);
 
   exportForm = new FormGroup({});
@@ -68,6 +72,15 @@ export class GenReportTableModal {
 
       this.completedReports.set(completedReports ?? []);
     }
+
+    const theme = this.themeManager.getTheme();
+    const themeString = theme === ThemeMode.Dark ? 'dark' : 'light';
+    this.themeString.set(themeString);
+
+    this.themeManager.subscribe((theme) => {
+      const themeString = theme === ThemeMode.Dark ? 'dark' : 'light';
+      this.themeString.set(themeString);
+    });
   }
 
   public updateExportQuestion(questionId: number, value: string) {

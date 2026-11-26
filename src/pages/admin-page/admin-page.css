@@ -1,6 +1,14 @@
-.admin-container {
+:host {
+    display: flex;
+    flex-direction: column;
+
     width: 100%;
     height: 100vh;
+    overflow-y: auto;
+}
+.admin-container {
+    width: 100%;
+    flex: 1;
     background-color: white;
     color: black;
 }
@@ -52,6 +60,10 @@
     }
 }
 
+.back-to-dashboard.dark {
+    color: white;
+}
+
 .action-icons {
     margin: 0 auto;
     display: flex;
@@ -65,12 +77,33 @@ td, th {
     text-align: left;
     font-size: 12pt;
 }
-tr.header {
-    background-color: rgb(77, 93, 114);
-    color: white;
+
+table.light {
+    color: black;
+    tr.header {
+        background-color: rgb(77, 93, 114);
+        color: white;
+    }
+    tr.even {
+        background-color: #f0f0f0;
+    }
+    tr.odd {
+        background-color: #e0e0e0;
+    }
 }
-tr.grey {
-    background-color: lightgrey;
+
+table.dark {
+    color: white;
+    tr.header {
+        background-color: #3f4347;
+        color: white;
+    }
+    tr.even {
+        background-color: #4a4a4a;
+    }
+    tr.odd {
+        background-color: #3a3a3a;
+    }
 }
 th {
     text-wrap: nowrap;  

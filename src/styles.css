@@ -25,7 +25,7 @@ button {
     padding: 5px 8px;
     font-size: 12pt;
     font-weight: bold;
-    border: 1px solid var(--border-light);
+    border: 1px solid #191919;
     border-radius: 2px;
     cursor: pointer;
     transition: 0.1s ease-in-out;
@@ -44,79 +44,96 @@ button:disabled {
 input {
     padding: 5px;
     font-size: 12pt;
-    border: 1px solid var(--border-light);
+    border: 1px solid #191919;
     border-radius: 2px;
 }
 select {
     padding: 5px;
     font-size: 12pt;
-    border: 1px solid var(--border-light);
+    border: 1px solid #191919;
+    border-radius: 2px;
+}
+textarea {
+    padding: 5px;
+    font-size: 12pt;
+    border: 1px solid #191919;
     border-radius: 2px;
 }
 
 html.dark {
-    background-color: var(--background-dark);
+    background-color: #333;
 }
 
 body.dark {
-    background-color: var(--background-dark);
+    background-color: #333;
 
     a {
         color: #fff;
     }
     
     button {
-        border-color: var(--border-dark);
-        background-color: var(--background-dark);
-        color: var(--text-dark);
+        border-color: #ccc;
+        background-color: #333;
+        color: #fff;
     }
     
     button:disabled {
         background-color: #555;
-        color: var(--text-dark);
+        color: #fff;
     }
     
     input {
-        background-color: var(--background-dark);
-        color: var(--text-dark);
-        border-color: var(--border-dark);
+        background-color: #333;
+        color: #fff;
+        border-color: #ccc;
     }
     
     
     select {
-        background-color: var(--background-dark);
-        color: var(--text-dark);
-        border-color: var(--border-dark);
+        background-color: #333;
+        color: #fff;
+        border-color: #ccc;
+    }
+
+    textarea {
+        background-color: #333;
+        color: #fff;
+        border-color: #ccc;
     }
 
 }
 
 body.light {
-    background-color: var(--background-light);
+    background-color: #fff;
     a {
-        color: var(--text-light);
+        color: #000;
         text-decoration: none;
     }
 
     button:disabled {
-        background-color: var(--background-light);
-        color: var(--text-light);
+        background-color: #fff;
+        color: #000;
     }
     
     button {
-        background-color: var(--background-light);
-        border-color: var(--border-light);
-        color: var(--text-light);
+        background-color: #fff;
+        border-color: #191919;
+        color: #000;
     }
     input {
-        border-color: var(--border-light);
-        background-color: var(--background-light);
-        color: var(--text-light);
+        border-color: #191919;
+        background-color: #fff;
+        color: #000;
     }
     select {
-        border-color: var(--border-light);
-        background-color: var(--background-light);
-        color: var(--text-light);
+        border-color: #191919;
+        background-color: #fff;
+        color: #000;
+    }
+    textarea {
+        border-color: #191919;
+        background-color: #fff;
+        color: #000;
     }
 }
 
