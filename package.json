@@ -2,7 +2,7 @@
   "name": "nurses-notes",
   "productName": "Nurses Notes",
   "description": "All-in-one time, travel, and notes management for nurses",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "main.js",
   "author": "William Couture",
   "scripts": {
