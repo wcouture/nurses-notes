@@ -6,11 +6,11 @@
   "main": "main.js",
   "author": "William Couture",
   "scripts": {
+    "build": "ng build",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "build": "ng build"
+    "publish": "electron-forge publish"
   },
   "private": true,
   "packageManager": "npm@11.19.0",

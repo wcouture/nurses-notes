@@ -120,6 +120,21 @@
     </div>
 </div>
 
+<div class="admin-section">
+    <div class="section-header">
+        <h4>Manage Themes</h4>
+        <!-- <button (click)="openModal('newTheme')">Create Theme</button> -->
+    </div>
+    <div>
+        <p>
+            Current Theme: {{themeManager.getTheme() | themeString}}
+        </p>
+        <div>
+            <toggle-switch [option1]="ThemeMode.Light.toString()" [option2]="ThemeMode.Dark.toString()" [option1Color]="'#ffcf7d'" [option2Color]="'#2d1957'" (onToggleCallback)="onToggleTheme($event)"></toggle-switch>
+        </div>
+    </div>
+</div>
+
 @if (modalState() === "newPatient") {
     <new-patient-modal (createPatientCallback)="onCreatePatient($event.name, $event.email, $event.phone, $event.birthdate, $event.streetAddress, $event.cityStateZip, $event.isUser)" (closeModalCallback)="modalState.set('closed')"></new-patient-modal>
 }

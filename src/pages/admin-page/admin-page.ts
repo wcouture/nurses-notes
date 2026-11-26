@@ -1,4 +1,5 @@
 import { Component, signal, inject } from '@angular/core';
+import { ThemeManager } from '../../services/theme-manager/theme-manager';
 import { EditPatientModal } from '../../components/edit-patient-modal/edit-patient-modal';
 import { SectionService } from '../../services/section-service/section-service';
 import { NewPatientModal } from '../../components/new-patient-modal/new-patient-modal';
@@ -14,9 +15,21 @@ import { IconImage } from '../../models/IconImage';
 import { EditReportModal } from '../../components/edit-report-modal/edit-report-modal';
 import { ReportScope } from '../../models/Report';
 import { ReportScopePipe } from '../../pipes/report-scope-pipe';
+import { ToggleSwitch } from '../../components/toggle-switch/toggle-switch';
+import { ThemeMode } from '../../models/Theme';
+import { ThemeStringPipe } from '../../pipes/theme-string-pipe/theme-string-pipe';
 
 @Component({
-  imports: [ReactiveFormsModule, RouterLink, NewPatientModal, EditPatientModal, NewReportModal, Icon, EditReportModal, ReportScopePipe],
+  imports: [ReactiveFormsModule, 
+            RouterLink, 
+            NewPatientModal, 
+            EditPatientModal, 
+            NewReportModal, 
+            Icon, 
+            EditReportModal, 
+            ReportScopePipe, 
+            ToggleSwitch,
+            ThemeStringPipe],
   selector: 'app-admin-page',
   styleUrl: './admin-page.css',
   templateUrl: './admin-page.html',
@@ -27,9 +40,11 @@ export class AdminPage {
   editPatientId = signal(-1);
 
   IconImage = IconImage;
+  ThemeMode = ThemeMode;
   patientService = inject(PatientService);
   reportService = inject(ReportService);
   sectionService = inject(SectionService);
+  themeManager = inject(ThemeManager);
   router = inject(Router); 
 
   user = signal(undefined as Patient | undefined | null);
@@ -111,6 +126,17 @@ export class AdminPage {
   // ====================================================================================
 
   // Edit ================================================================================
+  onToggleTheme(selectedTheme: string) {
+    switch(selectedTheme) {
+      case ThemeMode.Light.toString():
+        this.themeManager.setTheme(ThemeMode.Light);
+        break;
+      case ThemeMode.Dark.toString():
+        this.themeManager.setTheme(ThemeMode.Dark);
+        break;
+    }
+  }
+
   editReport(reportId: number) {
     this.editReportId.set(reportId);
     this.openModal("editReport");

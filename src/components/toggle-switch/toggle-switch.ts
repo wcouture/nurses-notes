@@ -20,6 +20,5 @@ export class ToggleSwitch {
   toggle() {
     this.selectedOption.set(this.selectedOption() === 0 ? 1 : 0);
     this.onToggleCallback.emit(this.selectedOption() === 0 ? this.option1() : this.option2());
-    
   }
 }
