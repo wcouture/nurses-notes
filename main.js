@@ -10,7 +10,8 @@ if (require('electron-squirrel-startup')) {
 
 let browser;
 let mainWindow;
-const db = new DatabaseSync('nurses-notes.db');
+const dbPath = path.join(app.getPath('userData'), 'nurses-notes.db');
+const db = new DatabaseSync(dbPath);
 
 
 async function generatePDF(htmlContent) {
