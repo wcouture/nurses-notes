@@ -1,5 +1,5 @@
 <div class="click-catcher" (click)="onClickCaught($event)">
-    <div class="modal-frame">
+    <div class="modal-frame {{ theme() }}">
         <ng-content></ng-content>
     </div>
 </div>

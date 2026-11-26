@@ -1,4 +1,5 @@
 import { Component, signal, inject,  } from '@angular/core';
+import { ThemeManager } from '../../services/theme-manager/theme-manager';
 import { GenReportTableModal } from '../gen-report-table-modal/gen-report-table-modal';
 import { ReportScope } from '../../models/Report';
 import { Icon } from '../icon/icon';
@@ -9,6 +10,7 @@ import { Patient } from '../../models/Patient';
 import { PatientService } from '../../services/patient-service/patient-service';
 import { ReportModal } from '../report-modal/report-modal';
 import { ViewReportModal } from '../view-report-modal/view-report-modal';
+import { ThemeMode } from '../../models/Theme';
 
 @Component({
   imports: [ReportModal, Icon, ViewReportModal, GenReportTableModal],
@@ -18,6 +20,7 @@ import { ViewReportModal } from '../view-report-modal/view-report-modal';
 })
 export class PatientDetail {
   IconImage = IconImage;
+  theme = signal("");
   
   userIsSelected = signal(false);
   selectedPatient = signal<Patient | undefined>(undefined);
@@ -35,6 +38,18 @@ export class PatientDetail {
 
   patientService = inject(PatientService);
   reportService = inject(ReportService);
+  themeManager = inject(ThemeManager);
+
+  ngOnInit() {
+    const currentTheme = this.themeManager.getTheme();
+    const themeString = currentTheme === ThemeMode.Dark ? 'dark' : 'light';
+    this.theme.set(themeString);
+
+    this.themeManager.subscribe((theme) => {
+      const themeString = theme === ThemeMode.Dark ? 'dark' : 'light';
+      this.theme.set(themeString);
+    });
+  }
 
   async loadReports() {
     const reports = await this.reportService.getReports(this.userIsSelected() ? ReportScope.User : ReportScope.Patient);

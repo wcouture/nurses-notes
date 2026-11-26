@@ -1,6 +1,8 @@
-import { Component, signal, viewChild } from '@angular/core';
+import { Component, inject, signal, viewChild } from '@angular/core';
+import { ThemeMode } from '../../models/Theme';
 import { PatientPanel } from '../../components/patient-panel/patient-panel';
 import { PatientDetail } from '../../components/patient-detail/patient-detail';
+import { ThemeManager } from '../../services/theme-manager/theme-manager';
 
 @Component({
   imports: [PatientPanel, PatientDetail],
@@ -13,6 +15,20 @@ export class Dashboard {
   readonly patientPanel = viewChild<PatientPanel>('panel');
   readonly patientDetail = viewChild<PatientDetail>('detail');
   protected panelVisible = signal(true);
+
+  themeManager = inject(ThemeManager);
+  theme = signal("");
+
+  ngOnInit() {
+    const currentTheme = this.themeManager.getTheme();
+    const themeString = currentTheme === ThemeMode.Dark ? 'dark' : 'light';
+    this.theme.set(themeString);
+
+    this.themeManager.subscribe((theme) => {
+      const themeString = theme === ThemeMode.Dark ? 'dark' : 'light';
+      this.theme.set(themeString);
+    });
+  }
 
   onSelectedPatientChanged(patientId: number) {
     const detail = this.patientDetail()

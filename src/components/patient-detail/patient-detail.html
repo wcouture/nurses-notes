@@ -1,32 +1,33 @@
-<div class="header-section">
-    <h2>{{ selectedPatient()?.name ?? 'Select a patient' }}</h2>
-    @if (selectedPatient() !== undefined) {
-        <div class="patient-summary">
-            <p>{{ selectedPatient()?.birthdate?.toDateString() ?? 'None' }}</p>
-            <p class="separator">/</p>
-            <p>{{ selectedPatient()?.email ?? 'None' }}</p>
-            <p class="separator">/</p>
-            <p>{{ selectedPatient()?.phone ?? 'None' }}</p>
-        </div>
-        <div class="patient-summary">
-            <p>
-                {{ selectedPatient()?.street_address ?? 'None' }},
-                {{ selectedPatient()?.city_state_zip ?? 'None' }}
-            </p>
-        </div>
-    }
-</div>
-<div class="detail-section">
-    @if (selectedPatient() !== undefined) {
-        <h3>
-            Patient Reports 
-            <span class="clear-selection" (click)="updateSelectedPatient(selectedPatient()?.id ?? null)">
-                Clear Selection
-            </span>
-        </h3>
-        <div class="report-list">
-            @for (report of reports() ?? []; track report.id) {
-                <div class="report-item {{ selectedReportId() === report.id ? 'active' : '' }}" 
+<div class="patient-detail {{ theme() }}">
+    <div class="header-section {{ theme() }}">
+        <h2>{{ selectedPatient()?.name ?? 'Select a patient' }}</h2>
+        @if (selectedPatient() !== undefined) {
+            <div class="patient-summary">
+                <p>{{ selectedPatient()?.birthdate?.toDateString() ?? 'None' }}</p>
+                <p class="separator">/</p>
+                <p>{{ selectedPatient()?.email ?? 'None' }}</p>
+                <p class="separator">/</p>
+                <p>{{ selectedPatient()?.phone ?? 'None' }}</p>
+            </div>
+            <div class="patient-summary">
+                <p>
+                    {{ selectedPatient()?.street_address ?? 'None' }},
+                    {{ selectedPatient()?.city_state_zip ?? 'None' }}
+                </p>
+            </div>
+        }
+    </div>
+    <div class="detail-section {{ theme() }}">
+        @if (selectedPatient() !== undefined) {
+            <h3>
+                Patient Reports 
+                <span class="clear-selection" (click)="updateSelectedPatient(selectedPatient()?.id ?? null)">
+                    Clear Selection
+                </span>
+            </h3>
+            <div class="report-list">
+                @for (report of reports() ?? []; track report.id) {
+                    <div class="report-item {{ selectedReportId() === report.id ? 'active' : '' }}" 
                     (click)="selectReport(report.id)" title="Click to select report">
                     <h4>{{ report.title }}</h4>
                 </div>
@@ -42,7 +43,7 @@
                 <p>Export Report</p>
             </button>
         </div>
-
+        
         <h3>Completed Reports</h3>
         <table class="entry-list">
             <tr class="header-row">
@@ -72,7 +73,7 @@
 
 @if (reportModalVisible()) {
     <report-modal 
-        (onCloseModal)="toggleReportModal(false)" 
+    (onCloseModal)="toggleReportModal(false)" 
         [reportId]="selectedReportId()" 
         [patientId]="selectedPatient()?.id" 
         (onReportSubmitted)="onReportSubmitted()">
@@ -80,7 +81,7 @@
 }
 @if (viewReportModalVisible()) {
     <view-report-modal
-        (onCloseModal)="toggleViewReportModal(false)"
+    (onCloseModal)="toggleViewReportModal(false)"
         [completedReportId]="selectedCompletedReportId()"
         [reportTitle]="selectedCompletedReportTitle()" 
         (onExportReport)="onExportReport($event)">
@@ -89,3 +90,5 @@
 @if (exportReportModalVisible()) {
     <gen-report-table-modal (onCloseModal)="toggleExportReportModal(false)" [reportId]="selectedReportId()" [patientId]="selectedPatient()?.id" />
 }
+
+</div>

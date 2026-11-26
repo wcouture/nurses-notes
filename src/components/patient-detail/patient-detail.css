@@ -1,7 +1,28 @@
 :host {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    --background-light: #ffffff;
+    --background-dark: #333333;
+
+    --text-light: #000000;
+    --text-dark: #ffffff;
+
+    --border-light: #191919;
+    --border-dark: #ccc;
+}
+
+.patient-detail {
+    flex: 1;
     border: 1px solid #ccc;
 }
+
+.patient-detail.dark {
+    border: 1px solid #555;
+}
+
+
 
 .header-section {
     background-image: linear-gradient(to bottom, #f0f0f0, #ffffff);
@@ -28,6 +49,12 @@
         }
     }
 
+}
+
+.header-section.dark {
+    background-image: linear-gradient(to bottom, #333, #444);
+    color: #fff;
+    border-color: #555;
 }
 
 
@@ -134,18 +161,99 @@
         }
 
         .header-row {
-            background-color: #263a50;
-            color: #ffffff;
             position: sticky;
             top: 0;
+        }
+    }
+}
+
+.detail-section.light {
+
+    h3 {
+        border-color: var(--border-light);
+        color: var(--text-light);
+
+        .clear-selection {
+            color: var(--text-light);
+            filter: brightness(0.8);
+        }
+
+        .clear-selection:hover {
+            filter: brightness(0.9);
+        }
+    }   
+
+    .none-selected {
+        color: var(--text-light);
+        filter: brightness(1.2);
+    }
+
+    .report-list {
+        .report-item {
+            border-color: var(--border-light);
+        }
+    }
+
+    .entry-list {
+        th,td {
+            border-color: var(--border-light);
+        }
+
+        .header-row {
+            background-color: #263a50;
+            color: var(--text-light);
         }
 
         .entry-item-row.even {
             background-color: #f9f9f9;
         }
-
         .entry-item-row.odd {
             background-color: #ffffff;
+        }
+    }
+}
+
+.detail-section.dark {
+    h3 {
+        border-color: var(--border-dark);
+        color: var(--text-dark);
+
+        .clear-selection {
+            color: var(--text-dark);
+            filter: brightness(0.8);
+        }
+
+        .clear-selection:hover {
+            filter: brightness(0.9);
+        }
+    }   
+
+    .none-selected {
+        color: var(--text-dark);
+        filter: brightness(0.8);
+    }
+
+    .report-list {
+        .report-item {
+            border-color: var(--border-dark);
+        }
+    }
+
+    .entry-list {
+        th,td {
+            border-color: var(--border-dark);
+        }
+
+        .header-row {
+            background-color: #3f4347;
+            color: var(--text-dark);
+        }
+
+        .entry-item-row.even {
+            background-color: #5e5e5e;
+        }
+        .entry-item-row.odd {
+            background-color: #4e4e4e;
         }
     }
 }

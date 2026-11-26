@@ -5,6 +5,14 @@
     justify-content: center;
 }
 
+.light {
+    filter: brightness(0);
+}
+
+.dark {
+    filter: brightness(2);
+}
+
 img {
     transition: all 0.1s ease-in-out;
 }

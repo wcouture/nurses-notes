@@ -2,7 +2,9 @@ import { Component, inject } from '@angular/core';
 import { ReportService } from '../services/report-service/report-service';
 import { SectionService } from '../services/section-service/section-service';
 import { RouterModule } from '@angular/router';
-import { ReportScope, SectionType } from '../models/Report';
+import { ReportScope } from '../models/Report';
+import { ThemeMode } from '../models/Theme';
+import { ThemeManager } from '../services/theme-manager/theme-manager';
 
 @Component({
   imports: [RouterModule],
@@ -13,6 +15,7 @@ import { ReportScope, SectionType } from '../models/Report';
 export class App {
   reportService = inject(ReportService);
   sectionService = inject(SectionService);
+  themeManager = inject(ThemeManager);
 
   async ngOnInit() {
     const user_reports = await this.reportService.getReports(ReportScope.User);
@@ -41,6 +44,18 @@ export class App {
         console.log("Default reports creation completed.");
       }); 
     }
+
+    const theme = this.themeManager.getTheme();
+    this.handleThemeChange(theme);
+
+    this.themeManager.subscribe((newTheme) => {
+      this.handleThemeChange(newTheme);
+    });
+  }
+
+  handleThemeChange(mode: ThemeMode) {
+    document.getElementsByTagName('html')[0].className = mode === ThemeMode.Dark ? 'dark' : '';
+    document.getElementsByTagName('body')[0].className = mode === ThemeMode.Dark ? 'dark' : '';
   }
 
 }

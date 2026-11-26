@@ -15,7 +15,12 @@ export class ToggleSwitch {
   option1Color = input<string>("#4caf50");
   option2Color = input<string>("#f44336");
 
+  startingOption = input<number>(0);
   selectedOption = signal<number>(0);
+
+  ngOnInit() {
+    this.selectedOption.set(this.startingOption());
+  }
 
   toggle() {
     this.selectedOption.set(this.selectedOption() === 0 ? 1 : 0);

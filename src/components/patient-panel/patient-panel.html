@@ -1,35 +1,37 @@
-<div class="panel-header">
-    <div class="close-button" (click)="togglePanelVisibility()">
-        @if (panelVisible()) {
-            <span>Minimize</span>
-            <icon [size]="4" [iconImage]="IconImage.back" />
-        } 
-        @else {
-            <icon [size]="4" [iconImage]="IconImage.next"/>
-        }
+<div class="patient-panel {{ themeClass() }}">
+    <div class="panel-header">
+        <div class="close-button" (click)="togglePanelVisibility()">
+            @if (panelVisible()) {
+                <span>Minimize</span>
+                <icon [size]="4" [iconImage]="IconImage.back" />
+            } 
+            @else {
+                <icon [size]="4" [iconImage]="IconImage.next"/>
+            }
+        </div>
     </div>
-</div>
-
-<ul class="patient-list">
-    @if (panelVisible()) { 
-        @if (user() !== undefined) {
+    
+    <ul class="patient-list">
+        @if (panelVisible()) { 
+            @if (user() !== undefined) {
+                <div class="separator"></div>
+                <li class="patient {{ selectedPatient() === user()?.id ? 'selected' : '' }}" (click)="onSelectPatient(user()?.id!)">
+                    <p class="name">My Reports</p>
+                </li>
+            }
             <div class="separator"></div>
-            <li class="patient {{ selectedPatient() === user()?.id ? 'selected' : '' }}" (click)="onSelectPatient(user()?.id!)">
-                <p class="name">My Reports</p>
-            </li>
+            @for (patient of patientList(); track patient) {
+                <li class="patient {{ selectedPatient() === patient.id ? 'selected' : '' }}" (click)="onSelectPatient(patient.id)">
+                    <p class="name">{{ patient.name }}</p>
+                    <p class="birthdate">{{ patient.birthdate }}</p>
+                </li>
+            }
         }
-        <div class="separator"></div>
-        @for (patient of patientList(); track patient) {
-            <li class="patient {{ selectedPatient() === patient.id ? 'selected' : '' }}" (click)="onSelectPatient(patient.id)">
-                <p class="name">{{ patient.name }}</p>
-                <p class="birthdate">{{ patient.birthdate }}</p>
-            </li>
-        }
-    }
-</ul>
-
-<div class="panel-footer">
-    <a [routerLink]="['/admin']">
-        <icon [size]="5" [iconImage]="IconImage.settings"/>
-    </a>
+    </ul>
+    
+    <div class="panel-footer">
+        <a [routerLink]="['/admin']">
+            <icon [size]="5" [iconImage]="IconImage.settings"/>
+        </a>
+    </div>
 </div>

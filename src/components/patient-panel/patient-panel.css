@@ -1,12 +1,51 @@
 :host {
     flex: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-panel {
+    flex: 1;
     min-width: max-content;
-    background-color: #ffffff;
     border: 1px solid #ccc;
     padding: 5px 10px;
     transition: 0.3s linear all;
     display: flex;
     flex-direction: column;
+}
+
+.patient-panel.light {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ccc;
+}
+
+.patient-panel.dark {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #555;
+
+    .patient-list {
+        .patient {
+            border-color: #555;
+        }
+
+        .patient:hover {
+            background-color: #444;
+        }
+
+        .patient.selected {
+            background-color: #555;
+        }
+    }
+
+    .separator {
+        background-color: #555;
+    }
+
+    .panel-footer {
+        border-color: #555;
+    }
 }
 
 p {

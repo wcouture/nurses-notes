@@ -50,6 +50,7 @@ export class AdminPage {
   user = signal(undefined as Patient | undefined | null);
   patients = signal([] as Patient[]);
   reports = signal([] as Report[]);
+  theme = signal("");
 
   private loadPatients = async () => {
     const patients = await this.patientService.getPatientList();
@@ -77,6 +78,15 @@ export class AdminPage {
   async ngOnInit() {
     await this.loadPatients();
     await this.loadReports();
+
+    const theme = await this.themeManager.getTheme();
+    const themeString = theme === ThemeMode.Dark ? "dark" : "light";
+    this.theme.set(themeString);
+
+    this.themeManager.subscribe((newTheme) => {
+      const themeString = newTheme === ThemeMode.Dark ? "dark" : "light";
+      this.theme.set(themeString);
+    });
   }
 
   // Create =============================================================================
