@@ -28,7 +28,10 @@ jobs:
           node-version: 24
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install dependencies 1 (npm install)
+        run: npm install
+
+      - name: Install dependencies 2 (npm ci)
         run: npm ci
 
       - name: Build Angular Application
