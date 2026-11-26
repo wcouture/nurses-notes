@@ -1,0 +1,4 @@
+<div class="toggle-container {{selectedOption() === 0 ? 'option1-selected' : 'option2-selected'}}"
+     [style.background-color]="selectedOption() === 0 ? this.option1Color() : this.option2Color()" (click)="toggle()">
+    <div class="toggle-button" (click)="toggle()"></div>
+</div>
