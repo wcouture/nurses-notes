@@ -1,18 +1,22 @@
 import { Component, output, input, inject, signal } from '@angular/core';
 import { Checkbox } from '../checkbox/checkbox';
-import { Report } from '../../models/Report';
+import { Report, SectionType } from '../../models/Report';
 import { ReportService } from '../../services/report-service/report-service';
 import { SectionService } from '../../services/section-service/section-service';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
-import { ModalFrame } from '../modal-frame/modal-frame'
+import { ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { ModalFrame } from '../modal-frame/modal-frame';
+import { DurationInput } from '../duration-input/duration-input';
+
 
 @Component({
-  imports: [ReactiveFormsModule, Checkbox, ModalFrame],
+  imports: [ReactiveFormsModule, Checkbox, ModalFrame, DurationInput],
   selector: 'report-modal',
   styleUrl: './report-modal.css',
   templateUrl: './report-modal.html',
 })
 export class ReportModal {
+  SectionType = SectionType;
+
   reportService = inject(ReportService);
   sectionService = inject(SectionService);
   reportForm = new FormGroup({});

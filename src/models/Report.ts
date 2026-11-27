@@ -61,7 +61,8 @@ export enum SectionType {
     Number = 2,
     Checkbox = 3,
     RadioButtons = 4,
-    Date = 5
+    Date = 5,
+    Duration = 6
 }
 
 export enum ReportScope {

@@ -1,0 +1,17 @@
+.inputs-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inputs-row.light {
+    color: #000000;
+}
+
+.inputs-row.dark {
+    color: #ffffff;
+}
+
+label {
+    font-style: italic;
+}

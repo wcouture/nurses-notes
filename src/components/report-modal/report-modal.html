@@ -8,25 +8,29 @@
                 <div class="section">
                     <p class="title">{{section.title}}</p>                    
                     @switch(section.type) {
-                        @case(0) {
+                        @case(SectionType.ShortText) {
                             <!-- Short Text -->
                             <input class="section-input" [name]="section.title + ';' + section.type" type="text" />
                         }
-                        @case(1) {
+                        @case(SectionType.LongText) {
                             <!-- Long Text -->
                             <textarea class="section-input" [name]="section.title + ';' + section.type"></textarea>
                         }
-                        @case(2) {
+                        @case(SectionType.Number) {
                             <!-- Number -->
                             <input class="section-input" [name]="section.title + ';' + section.type" type="number" />
                         }
-                        @case(3) {
+                        @case(SectionType.Checkbox) {
                             <!-- Checkbox -->
                             <checkbox class="section-input" [name]="section.title + ';' + section.type"></checkbox>
                         }
-                        @case(5) {
+                        @case(SectionType.Date) {
                             <!-- Date -->
                             <input class="section-input" [name]="section.title + ';' + section.type" type="date" />
+                        }
+                        @case (SectionType.Duration) {
+                            <!-- Duration -->
+                            <duration-input class="section-input" [name]="section.title + ';' + section.type"></duration-input>
                         }
                     }
                 </div>

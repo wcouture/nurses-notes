@@ -1,0 +1,9 @@
+<input type="text" [name]="name()" [value]="duration()" hidden/>
+
+<div class="inputs-row {{ theme() }}">
+    <label>Hours: </label>
+    <input type="number" (input)="updateHours($any($event.target).value)">
+
+    <label>Minutes: </label>
+    <input type="number" (input)="updateMinutes($any($event.target).value)">
+</div>

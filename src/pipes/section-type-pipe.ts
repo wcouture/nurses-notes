@@ -19,6 +19,8 @@ export class SectionTypePipe implements PipeTransform {
         return 'Checkbox';
       case SectionType.RadioButtons:
         return 'Radio Buttons';
+      case SectionType.Duration:
+        return 'Duration';
       default:
         return '';
     }
