@@ -33,6 +33,9 @@
                                     @case (SectionType.Date) {
                                         <input [name]="question.id.toString()" type="date" />
                                     }
+                                    @case (SectionType.Duration) {
+                                        <duration-input [name]="question.id.toString()"></duration-input>
+                                    }
                                 }
                             }
                             @if (!report() || report()?.export_questions.length === 0) {

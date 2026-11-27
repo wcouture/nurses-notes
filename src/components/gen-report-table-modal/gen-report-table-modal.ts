@@ -11,6 +11,7 @@ import { PatientService } from '../../services/patient-service/patient-service';
 import { ModalFrame } from '../modal-frame/modal-frame';
 import { ThemeManager } from '../../services/theme-manager/theme-manager';
 import { ThemeMode } from '../../models/Theme';
+import { DurationInput } from '../../components/duration-input/duration-input';
 
 enum ExportStep {
   ExportQuestions,
@@ -19,7 +20,7 @@ enum ExportStep {
 };
   
 @Component({
-  imports: [ReactiveFormsModule, Checkbox, ModalFrame],
+  imports: [ReactiveFormsModule, Checkbox, ModalFrame, DurationInput],
   selector: 'gen-report-table-modal',
   styleUrl: './gen-report-table-modal.css',
   templateUrl: './gen-report-table-modal.html',
