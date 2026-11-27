@@ -344,10 +344,8 @@ app.whenReady().then(async () => {
 });
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        db.close();
-        app.quit();
-    }
+    db.close();
+    app.quit();
 });
 
 app.on('activate', async () => {
