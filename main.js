@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const { DatabaseSync } = require('node:sqlite');
 const { app, BrowserWindow, ipcMain } = require('electron');
+const fs = require('fs');
 const path = require('path');
 
 if (require('electron-squirrel-startup')) {
@@ -28,8 +29,28 @@ async function generatePDF(htmlContent) {
     return pdfBuffer;
 }
 
+function getChromePath() {
+    const cacheDirectory = path.join(__dirname, '.cache', 'puppeteer', 'chrome');
+    const versions = fs.readdirSync(cacheDirectory);
+    const macFolder = versions.find(version => version.startsWith('mac'));
+
+    const archFolder = process.arch === 'x64' ? 'chrome-mac-x64' : 'chrome-mac-arm64';
+
+    return path.join(
+        cacheDirectory,
+        macFolder,
+        archFolder,
+        'Google Chrome for Testing.app',
+        'Contents',
+        'MacOS',
+        'Google Chrome for Testing'
+    );
+}
+
 async function initializePuppeteer() {
-    browser = await puppeteer.launch({ headless: true });
+
+
+    browser = await puppeteer.launch({ headless: true, executablePath: getChromePath() });
 
     ipcMain.handle('generate-pdf', async (event, htmlContent) => {
         const pdfBuffer = await generatePDF(htmlContent);
