@@ -130,13 +130,25 @@ export class PatientDetail {
     this.loadReports();
   }
 
-  onExportReport(completedReportId: number) {
-    console.log('Exporting completed report with ID: ', completedReportId);
-  }
-
   viewCompletedReport(completedReportId: number, completedReportTitle: string | undefined | null) {
     this.selectedCompletedReportId.set(completedReportId);
     this.selectedCompletedReportTitle.set(completedReportTitle ?? "Title Unknown");
     this.viewReportModalVisible.set(true);
+  }
+
+  async deleteCompletedReport(reportId: number, completedReportId: number) {
+    const reportRecord = this.reportData()?.find(rd => rd.report?.id === reportId);
+    if (reportRecord) {
+      const completedReport = reportRecord.entries?.find(entry => entry.id === completedReportId);
+      if (completedReport) {
+        for (const entry of completedReport.entries) {
+          await this.reportService.deleteReportEntry(entry.id);
+        }
+        await this.reportService.deleteCompletedReport(completedReportId);
+        
+        reportRecord.entries = reportRecord.entries?.filter(entry => entry.id !== completedReportId);
+        this.reportData.set([...this.reportData() ?? []]);
+      }
+    }
   }
 }

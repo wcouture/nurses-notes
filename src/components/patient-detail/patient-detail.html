@@ -49,6 +49,7 @@
             <h4 class="table-label">{{ reportRecord.report?.title }}</h4>
             <table class="entry-list">
                 <tr class="header-row">
+                    <th></th>
                     @for (section of reportRecord.report?.sections ?? []; track section.id) {
                         <th>{{ section.title }}</th>
                     }
@@ -56,6 +57,9 @@
 
                 @for (completedReport of reportRecord.entries ?? []; track completedReport.id; let e = $even) {
                     <tr class="entry-item-row {{ e ? 'even' : 'odd' }}">
+                        <td>
+                            <icon [iconImage]="IconImage.delete" [size]="4" (click)="deleteCompletedReport(reportRecord.report?.id ?? -1, completedReport.id)" />
+                        </td>
                         @for (entry of completedReport.entries ?? []; track entry.id) {
                             <td>{{ entry.value ?? '' }}</td>
                         }
@@ -81,8 +85,7 @@
     <view-report-modal
     (onCloseModal)="toggleViewReportModal(false)"
         [completedReportId]="selectedCompletedReportId()"
-        [reportTitle]="selectedCompletedReportTitle()" 
-        (onExportReport)="onExportReport($event)">
+        [reportTitle]="selectedCompletedReportTitle()">
     </view-report-modal>
 }
 @if (exportReportModalVisible()) {
