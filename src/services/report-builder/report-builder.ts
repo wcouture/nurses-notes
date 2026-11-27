@@ -101,7 +101,7 @@ export class ReportBuilder {
     private async insertSignature(template: string): Promise<string> {
         const signature_base64 = await this.getImageAsBase64("signature.png");
         const signature_url = `data:image/png;base64,${signature_base64}`;
-        return template.replace("{{SIGNATURE}}", `<img src="${signature_url}" alt="Signature" style="max-width: 100%; height: auto;" />`);
+        return template.replace("{{SIGNATURE}}", `<img src="${signature_url}" alt="Signature" style="max-width: 100%; max-height: 50px; height: auto;" />`);
     }
 
     // Generates the HTML table for the report based on its sections and entries
