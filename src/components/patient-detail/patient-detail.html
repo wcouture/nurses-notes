@@ -20,7 +20,7 @@
     <div class="detail-section {{ theme() }}">
         @if (selectedPatient() !== undefined) {
             <h3>
-                Patient Reports 
+                {{ userIsSelected() ? 'My' : 'Patient' }} Reports 
                 <span class="clear-selection" (click)="updateSelectedPatient(selectedPatient()?.id ?? null)">
                     Clear Selection
                 </span>
@@ -45,26 +45,24 @@
         </div>
         
         <h3>Completed Reports</h3>
-        <table class="entry-list">
-            <tr class="header-row">
-                <th>Report Title</th>
-                <th>Date Completed</th>
-                <th>View</th>
-                <th>Export</th>
-            </tr>
-            @for (completedReport of completedReports() ?? []; track completedReport.id; let e = $even) {
-                <tr class="entry-item-row {{ e ? 'even' : 'odd' }}">
-                    <td>{{ completedReport.report_title }}</td>
-                    <td>{{ completedReport.date_completed }}</td>
-                    <td class="centered">
-                        <icon [size]="5" [iconImage]="IconImage.view" (click)="viewCompletedReport(completedReport.id, completedReport.report_title)" />
-                    </td>
-                    <td class="centered">
-                        <icon [size]="5" [iconImage]="IconImage.export" (click)="onExportReport(completedReport.id)"/>
-                    </td>
+        @for (reportRecord of reportData() ?? []; track reportRecord.report?.id; let e = $even) {
+            <h4 class="table-label">{{ reportRecord.report?.title }}</h4>
+            <table class="entry-list">
+                <tr class="header-row">
+                    @for (section of reportRecord.report?.sections ?? []; track section.id) {
+                        <th>{{ section.title }}</th>
+                    }
                 </tr>
-            }
-        </table>
+
+                @for (completedReport of reportRecord.entries ?? []; track completedReport.id; let e = $even) {
+                    <tr class="entry-item-row {{ e ? 'even' : 'odd' }}">
+                        @for (entry of completedReport.entries ?? []; track entry.id) {
+                            <td>{{ entry.value ?? '' }}</td>
+                        }
+                    </tr>
+                }
+            </table>
+        }
     } 
     @else {
         <p class="none-selected">No patient selected.<br/><br/>Select a patient to manage reports and view details.</p>

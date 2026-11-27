@@ -1,4 +1,5 @@
 import { Component, signal, inject,  } from '@angular/core';
+import { SectionService } from '../../services/section-service/section-service';
 import { ThemeManager } from '../../services/theme-manager/theme-manager';
 import { GenReportTableModal } from '../gen-report-table-modal/gen-report-table-modal';
 import { ReportScope } from '../../models/Report';
@@ -11,6 +12,11 @@ import { PatientService } from '../../services/patient-service/patient-service';
 import { ReportModal } from '../report-modal/report-modal';
 import { ViewReportModal } from '../view-report-modal/view-report-modal';
 import { ThemeMode } from '../../models/Theme';
+
+class ReportData {
+  report: Report | null = null;
+  entries: CompletedReport[] = [];
+}
 
 @Component({
   imports: [ReportModal, Icon, ViewReportModal, GenReportTableModal],
@@ -30,7 +36,7 @@ export class PatientDetail {
   selectedCompletedReportTitle = signal<string | undefined>(undefined);
 
   reports = signal<Report[] | null>(null)
-  completedReports = signal<CompletedReport[] | null>(null);
+  reportData = signal<ReportData[] | null>(null);
   
   reportModalVisible = signal(false);
   viewReportModalVisible = signal(false);
@@ -38,6 +44,7 @@ export class PatientDetail {
 
   patientService = inject(PatientService);
   reportService = inject(ReportService);
+  sectionService = inject(SectionService);
   themeManager = inject(ThemeManager);
 
   ngOnInit() {
@@ -53,21 +60,40 @@ export class PatientDetail {
 
   async loadReports() {
     const reports = await this.reportService.getReports(this.userIsSelected() ? ReportScope.User : ReportScope.Patient);
-    const reportsCompleted = await this.reportService.getCompletedReports(this.selectedPatient()?.id ?? -1) ?? [];
+    const reportData: ReportData[] = [];
 
-    for (const completedReport of reportsCompleted) {
-      const report = reports?.find(r => r.id === completedReport.report_id)
-      if (report) {
+    for (const report of reports ?? []) {
+      const sections = await this.sectionService.getSections(report.id);
+      report.sections = sections ?? [];
+
+      const completedEntries = await this.reportService.getCompletedReportsByReportId(this.selectedPatient()?.id ?? -1, report.id) ?? [];
+      for (const completedReport of completedEntries) {
         completedReport.report_title = report.title;
+        completedReport.entries = await this.reportService.getReportEntries(completedReport.id) ?? [];
+      }
+
+      reportData.push({ report, entries: completedEntries });
+    }
+
+    this.reportData.set(reportData);
+    this.reports.set(reports ?? []);
+  }
+
+  reorderCompletedReportTable(reportId: number) {
+    const reportData = this.reportData() ?? [];
+    if (reportData.length > 1) {
+      const selectedReport = reportData?.find(rd => rd.report?.id === reportId)!;
+  
+      const reorderedData = [selectedReport, ...reportData?.filter(rd => rd.report?.id !== reportId) ?? [] as ReportData[]];
+      if (reorderedData && reorderedData[0]) {
+        this.reportData.set(reorderedData);
       }
     }
-    
-    this.reports.set(reports ?? []);
-    this.completedReports.set(reportsCompleted);
   }
 
   selectReport(reportId: number) {
     this.selectedReportId.set(reportId);
+    this.reorderCompletedReportTable(reportId);
   }
 
   toggleReportModal(visible: boolean) {

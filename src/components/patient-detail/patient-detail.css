@@ -143,6 +143,10 @@
         }
     }
 
+    .table-label {
+        margin: 10px 0 5px 0;
+        font-weight: bold;
+    }
     .entry-list {
         width: 100%;
         border-collapse: collapse;
