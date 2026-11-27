@@ -78,7 +78,7 @@
               "name": "nurses-notes"
             },
             "prerelease": false,
-            "draft": true
+            "draft": false
           }
         }
       ]
