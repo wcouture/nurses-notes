@@ -4,15 +4,18 @@ import { ReportService } from '../../services/report-service/report-service';
 import type { ReportEntry } from '../../models/Report';
 import { SectionType } from '../../models/Report';
 import { ModalFrame } from '../modal-frame/modal-frame'
+import { Icon } from '../icon/icon'; 
+import { IconImage } from '../../models/IconImage';
 
 @Component({
-  imports: [DateFormatPipe, ModalFrame],
+  imports: [DateFormatPipe, ModalFrame, Icon],
   selector: 'view-report-modal',
   styleUrl: './view-report-modal.css',
   templateUrl: './view-report-modal.html',
 })
 export class ViewReportModal {
   SectionType = SectionType;
+  IconImage = IconImage;
 
   reportService = inject(ReportService);
 

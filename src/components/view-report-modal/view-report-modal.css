@@ -1,69 +1,51 @@
-.click-catcher {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+p {
+    padding: 0;
+    margin: 0;
 }
 
-.modal-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1001;
-    min-width: min(400px, 50vw);
-    max-width: max(800px, 80vw);
+.modal-header, .modal-body {
+    padding: 5px;
+}
 
-    p {
-        padding: 0;
-        margin: 0;
+.modal-header {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        font-weight: bold;
     }
+}
 
-    .modal-header, .modal-body {
-        padding: 5px;
-    }
-
-    .modal-header {
-        border-bottom: 1px solid #eee;
-        margin-bottom: 10px;
-
+.modal-body {
+    .section {
+        
         .title {
             font-weight: bold;
         }
-    }
+        .section-input {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
 
-    .modal-body {
-        .section {
+        .report-entry {
+            padding: 10px 0;
             
-            .title {
+            .label {
                 font-weight: bold;
+                border-bottom: 1px solid #eee;
+                margin-bottom: 5px;
             }
-            .section-input {
-                width: 100%;
-                padding: 5px;
-                margin-top: 5px;
-                box-sizing: border-box;
-            }
-
-            .report-entry {
-                padding: 10px 0;
-                
-                .label {
-                    font-weight: bold;
-                    border-bottom: 1px solid #eee;
-                    margin-bottom: 5px;
-                }
-                .value {
-                    flex: 1;
-                    text-align: left;
-                    font-style: italic;
-                }
+            .value {
+                flex: 1;
+                text-align: left;
+                font-style: italic;
             }
         }
     }
