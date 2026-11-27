@@ -7,6 +7,7 @@
 /bazel-out
 /out
 /out/*
+/.cache
 
 # Node
 /node_modules
