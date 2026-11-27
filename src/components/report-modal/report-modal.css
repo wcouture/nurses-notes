@@ -38,4 +38,8 @@ p {
             resize: vertical;
         }
     }
+
+    button {
+        margin-top: 10px;
+    }
 }

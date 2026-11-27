@@ -32,24 +32,30 @@ async function generatePDF(htmlContent) {
 function getChromePath() {
     const cacheDirectory = path.join(__dirname, '.cache', 'puppeteer', 'chrome');
     const versions = fs.readdirSync(cacheDirectory);
-    const macFolder = versions.find(version => version.startsWith('mac'));
 
-    const archFolder = process.arch === 'x64' ? 'chrome-mac-x64' : 'chrome-mac-arm64';
+    if (process.platform === 'win32') {
+        const windFolder = versions.find(v => v.startsWith('win'));
+        const archFolder = process.arch === 'x64' ? 'chrome-win64' : 'chrome-win32';
+        return path.join(cacheDirectory, windFolder, archFolder, 'chrome.exe');
+    }
 
-    return path.join(
-        cacheDirectory,
-        macFolder,
-        archFolder,
-        'Google Chrome for Testing.app',
-        'Contents',
-        'MacOS',
-        'Google Chrome for Testing'
-    );
+    if (process.platform === 'darwin') {
+        const macFolder = versions.find(version => version.startsWith(''));
+        const archFolder = process.arch === 'x64' ? 'chrome-mac-x64' : 'chrome-mac-arm64';
+    
+        return path.join(
+            cacheDirectory,
+            macFolder,
+            archFolder,
+            'Google Chrome for Testing.app',
+            'Contents',
+            'MacOS',
+            'Google Chrome for Testing'
+        );
+    }
 }
 
 async function initializePuppeteer() {
-
-
     browser = await puppeteer.launch({ headless: true, executablePath: getChromePath() });
 
     ipcMain.handle('generate-pdf', async (event, htmlContent) => {
